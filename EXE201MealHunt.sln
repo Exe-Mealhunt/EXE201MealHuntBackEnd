@@ -5,13 +5,9 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXE201MealHunt", "EXE201MealHunt\EXE201MealHunt.csproj", "{F08BD2C8-B75C-4EF2-864B-FBAA4BF02F29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{064E785D-6D32-4F24-ABDC-D3A4E4CEC8BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{064E785D-6D32-4F24-ABDC-D3A4E4CEC8BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "BusinessObjects\BusinessObjects.csproj", "{514DB55D-ECCF-45B7-BD90-71163C8F7793}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO", "DAO\DAO.csproj", "{801F8A7B-F4F6-4A91-8792-591968D704A3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{175156D2-0B9D-4540-84C7-95472CEFA25E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{175156D2-0B9D-4540-84C7-95472CEFA25E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,14 +23,6 @@ Global
 		{064E785D-6D32-4F24-ABDC-D3A4E4CEC8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{064E785D-6D32-4F24-ABDC-D3A4E4CEC8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{064E785D-6D32-4F24-ABDC-D3A4E4CEC8BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{514DB55D-ECCF-45B7-BD90-71163C8F7793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{514DB55D-ECCF-45B7-BD90-71163C8F7793}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{514DB55D-ECCF-45B7-BD90-71163C8F7793}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{514DB55D-ECCF-45B7-BD90-71163C8F7793}.Release|Any CPU.Build.0 = Release|Any CPU
-		{801F8A7B-F4F6-4A91-8792-591968D704A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{801F8A7B-F4F6-4A91-8792-591968D704A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{801F8A7B-F4F6-4A91-8792-591968D704A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{801F8A7B-F4F6-4A91-8792-591968D704A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{175156D2-0B9D-4540-84C7-95472CEFA25E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{175156D2-0B9D-4540-84C7-95472CEFA25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{175156D2-0B9D-4540-84C7-95472CEFA25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
