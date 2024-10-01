@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BusinessObjects;
+namespace MealHunt_Repositories;
 
 public partial class ShoppingList
 {

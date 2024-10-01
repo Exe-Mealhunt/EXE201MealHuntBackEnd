@@ -1,0 +1,6 @@
+@MealHunt_APIs_HostAddress = http://localhost:5230
+
+GET {{MealHunt_APIs_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EXE201MealHunt", "EXE201MealHunt\EXE201MealHunt.csproj", "{F08BD2C8-B75C-4EF2-864B-FBAA4BF02F29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealHunt_APIs", "EXE201MealHunt\MealHunt_APIs.csproj", "{F08BD2C8-B75C-4EF2-864B-FBAA4BF02F29}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{064E785D-6D32-4F24-ABDC-D3A4E4CEC8BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealHunt_Repositories", "Repositories\MealHunt_Repositories.csproj", "{064E785D-6D32-4F24-ABDC-D3A4E4CEC8BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{175156D2-0B9D-4540-84C7-95472CEFA25E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MealHunt_Services", "Services\MealHunt_Services.csproj", "{175156D2-0B9D-4540-84C7-95472CEFA25E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
