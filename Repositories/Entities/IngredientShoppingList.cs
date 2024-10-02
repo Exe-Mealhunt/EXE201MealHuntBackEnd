@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace MealHunt_Repositories;
 
-public partial class IngredientShoppingListss
+public partial class IngredientShoppingList
 {
     public int Id { get; set; }
 
     public int? IngredientId { get; set; }
 
-    public int? ShoppingListsId { get; set; }
+    public int? ShoppingListId { get; set; }
 
     public byte[] CreatedAt { get; set; } = null!;
 
@@ -17,5 +17,5 @@ public partial class IngredientShoppingListss
 
     public virtual Ingredient? Ingredient { get; set; }
 
-    public virtual ShoppingList? ShoppingLists { get; set; }
+    public virtual ShoppingList? ShoppingList { get; set; }
 }

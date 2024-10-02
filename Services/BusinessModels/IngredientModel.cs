@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MealHunt_Repositories;
+namespace MealHunt_Services.BusinessModels;
 
-public partial class Ingredient
+public partial class IngredientModel
 {
     public int Id { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Ingredient
 
     public int? Status { get; set; }
 
-    public virtual ICollection<IngredientShoppingList> IngredientShoppingLists { get; set; } = new List<IngredientShoppingList>();
+    public virtual List<IngredientShoppingListModel> IngredientShoppingLists { get; set; } = new List<IngredientShoppingListModel>();
 
-    public virtual ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
+    public virtual List<RecipeIngredientModel> RecipeIngredients { get; set; } = new List<RecipeIngredientModel>();
 }

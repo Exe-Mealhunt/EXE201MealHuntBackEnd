@@ -89,7 +89,7 @@ namespace MealHunt_Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "recipeIngredients",
+                name: "recipe_ingredients",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
@@ -116,7 +116,7 @@ namespace MealHunt_Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "recipeTags",
+                name: "recipe_tags",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
@@ -164,7 +164,7 @@ namespace MealHunt_Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "savedRecipes",
+                name: "saved_recipes",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
@@ -189,7 +189,7 @@ namespace MealHunt_Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "shoppingLists",
+                name: "shopping_lists",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
@@ -219,7 +219,7 @@ namespace MealHunt_Repositories.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
                     user_id = table.Column<int>(type: "integer", nullable: true),
-                    replyTo_id = table.Column<int>(type: "integer", nullable: true),
+                    reply_to_id = table.Column<int>(type: "integer", nullable: true),
                     post_id = table.Column<int>(type: "integer", nullable: true),
                     content = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true),
                     rating = table.Column<double>(type: "double precision", nullable: true),
@@ -242,12 +242,12 @@ namespace MealHunt_Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ingredientShoppingListss",
+                name: "ingredient_shopping_lists",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
                     ingredient_id = table.Column<int>(type: "integer", nullable: true),
-                    shoppingLists_id = table.Column<int>(type: "integer", nullable: true),
+                    shopping_list_id = table.Column<int>(type: "integer", nullable: true),
                     created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -261,8 +261,8 @@ namespace MealHunt_Repositories.Migrations
                         principalColumn: "id");
                     table.ForeignKey(
                         name: "FK__ingredien__shopp__534D60F1",
-                        column: x => x.shoppingLists_id,
-                        principalTable: "shoppingLists",
+                        column: x => x.shopping_list_id,
+                        principalTable: "shopping_lists",
                         principalColumn: "id");
                 });
 
@@ -277,14 +277,14 @@ namespace MealHunt_Repositories.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingredientShoppingListss_ingredient_id",
-                table: "ingredientShoppingListss",
+                name: "IX_ingredient_shopping_lists_ingredient_id",
+                table: "ingredient_shopping_lists",
                 column: "ingredient_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingredientShoppingListss_shoppingLists_id",
-                table: "ingredientShoppingListss",
-                column: "shoppingLists_id");
+                name: "IX_ingredient_shopping_lists_shopping_list_id",
+                table: "ingredient_shopping_lists",
+                column: "shopping_list_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_posts_user_id",
@@ -292,43 +292,43 @@ namespace MealHunt_Repositories.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_recipeIngredients_ingredient_id",
-                table: "recipeIngredients",
+                name: "IX_recipe_ingredients_ingredient_id",
+                table: "recipe_ingredients",
                 column: "ingredient_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_recipeIngredients_recipe_id",
-                table: "recipeIngredients",
+                name: "IX_recipe_ingredients_recipe_id",
+                table: "recipe_ingredients",
                 column: "recipe_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_recipeTags_recipe_id",
-                table: "recipeTags",
+                name: "IX_recipe_tags_recipe_id",
+                table: "recipe_tags",
                 column: "recipe_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_recipeTags_tags_id",
-                table: "recipeTags",
+                name: "IX_recipe_tags_tags_id",
+                table: "recipe_tags",
                 column: "tags_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_savedRecipes_recipe_id",
-                table: "savedRecipes",
+                name: "IX_saved_recipes_recipe_id",
+                table: "saved_recipes",
                 column: "recipe_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_savedRecipes_user_id",
-                table: "savedRecipes",
+                name: "IX_saved_recipes_user_id",
+                table: "saved_recipes",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_shoppingLists_recipe_id",
-                table: "shoppingLists",
+                name: "IX_shopping_lists_recipe_id",
+                table: "shopping_lists",
                 column: "recipe_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_shoppingLists_user_id",
-                table: "shoppingLists",
+                name: "IX_shopping_lists_user_id",
+                table: "shopping_lists",
                 column: "user_id");
         }
 
@@ -339,16 +339,16 @@ namespace MealHunt_Repositories.Migrations
                 name: "comments");
 
             migrationBuilder.DropTable(
-                name: "ingredientShoppingListss");
+                name: "ingredient_shopping_lists");
 
             migrationBuilder.DropTable(
-                name: "recipeIngredients");
+                name: "recipe_ingredients");
 
             migrationBuilder.DropTable(
-                name: "recipeTags");
+                name: "recipe_tags");
 
             migrationBuilder.DropTable(
-                name: "savedRecipes");
+                name: "saved_recipes");
 
             migrationBuilder.DropTable(
                 name: "tips");
@@ -357,7 +357,7 @@ namespace MealHunt_Repositories.Migrations
                 name: "posts");
 
             migrationBuilder.DropTable(
-                name: "shoppingLists");
+                name: "shopping_lists");
 
             migrationBuilder.DropTable(
                 name: "ingredients");

@@ -20,7 +20,7 @@ public partial class MealHuntContext : DbContext
 
     public virtual DbSet<Ingredient> Ingredients { get; set; }
 
-    public virtual DbSet<IngredientShoppingListss> IngredientShoppingListsses { get; set; }
+    public virtual DbSet<IngredientShoppingList> IngredientShoppingLists { get; set; }
 
     public virtual DbSet<Post> Posts { get; set; }
 
@@ -72,7 +72,7 @@ public partial class MealHuntContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.PostId).HasColumnName("post_id");
             entity.Property(e => e.Rating).HasColumnName("rating");
-            entity.Property(e => e.ReplyToId).HasColumnName("replyTo_id");
+            entity.Property(e => e.ReplyToId).HasColumnName("reply_to_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -111,11 +111,11 @@ public partial class MealHuntContext : DbContext
                 .HasColumnName("unit");
         });
 
-        modelBuilder.Entity<IngredientShoppingListss>(entity =>
+        modelBuilder.Entity<IngredientShoppingList>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__ingredie__3213E83FF39B2E86");
 
-            entity.ToTable("ingredientShoppingListss");
+            entity.ToTable("ingredient_shopping_lists");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -125,15 +125,15 @@ public partial class MealHuntContext : DbContext
                 .IsConcurrencyToken()
                 .HasColumnName("created_at");
             entity.Property(e => e.IngredientId).HasColumnName("ingredient_id");
-            entity.Property(e => e.ShoppingListsId).HasColumnName("shoppingLists_id");
+            entity.Property(e => e.ShoppingListId).HasColumnName("shopping_list_id");
             entity.Property(e => e.Status).HasColumnName("status");
 
-            entity.HasOne(d => d.Ingredient).WithMany(p => p.IngredientShoppingListsses)
+            entity.HasOne(d => d.Ingredient).WithMany(p => p.IngredientShoppingLists)
                 .HasForeignKey(d => d.IngredientId)
                 .HasConstraintName("FK__ingredien__ingre__52593CB8");
 
-            entity.HasOne(d => d.ShoppingLists).WithMany(p => p.IngredientShoppingListsses)
-                .HasForeignKey(d => d.ShoppingListsId)
+            entity.HasOne(d => d.ShoppingList).WithMany(p => p.IngredientShoppingLists)
+                .HasForeignKey(d => d.ShoppingListId)
                 .HasConstraintName("FK__ingredien__shopp__534D60F1");
         });
 
@@ -192,7 +192,7 @@ public partial class MealHuntContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__recipeIn__3213E83FD6FF7A34");
 
-            entity.ToTable("recipeIngredients");
+            entity.ToTable("recipe_ingredients");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -222,7 +222,7 @@ public partial class MealHuntContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__recipeTa__3213E83F1E9E4B89");
 
-            entity.ToTable("recipeTags");
+            entity.ToTable("recipe_tags");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -236,14 +236,14 @@ public partial class MealHuntContext : DbContext
                 .HasColumnName("name");
             entity.Property(e => e.RecipeId).HasColumnName("recipe_id");
             entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.TagsId).HasColumnName("tags_id");
+            entity.Property(e => e.TagId).HasColumnName("tags_id");
 
             entity.HasOne(d => d.Recipe).WithMany(p => p.RecipeTags)
                 .HasForeignKey(d => d.RecipeId)
                 .HasConstraintName("FK__recipeTag__recip__4E88ABD4");
 
-            entity.HasOne(d => d.Tags).WithMany(p => p.RecipeTags)
-                .HasForeignKey(d => d.TagsId)
+            entity.HasOne(d => d.Tag).WithMany(p => p.RecipeTags)
+                .HasForeignKey(d => d.TagId)
                 .HasConstraintName("FK__recipeTag__tags___4F7CD00D");
         });
 
@@ -251,7 +251,7 @@ public partial class MealHuntContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__savedRec__3213E83F2EED4A92");
 
-            entity.ToTable("savedRecipes");
+            entity.ToTable("saved_recipes");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -277,7 +277,7 @@ public partial class MealHuntContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__shopping__3213E83F1DF1A052");
 
-            entity.ToTable("shoppingLists");
+            entity.ToTable("shopping_lists");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()

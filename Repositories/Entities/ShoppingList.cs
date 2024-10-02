@@ -15,7 +15,7 @@ public partial class ShoppingList
 
     public int? Status { get; set; }
 
-    public virtual ICollection<IngredientShoppingListss> IngredientShoppingListsses { get; set; } = new List<IngredientShoppingListss>();
+    public virtual ICollection<IngredientShoppingList> IngredientShoppingLists { get; set; } = new List<IngredientShoppingList>();
 
     public virtual Recipe? Recipe { get; set; }
 

@@ -50,7 +50,7 @@ namespace MealHunt_Repositories.Migrations
 
                     b.Property<int?>("ReplyToId")
                         .HasColumnType("integer")
-                        .HasColumnName("replyTo_id");
+                        .HasColumnName("reply_to_id");
 
                     b.Property<int?>("Status")
                         .HasColumnType("integer")
@@ -112,7 +112,7 @@ namespace MealHunt_Repositories.Migrations
                     b.ToTable("ingredients", (string)null);
                 });
 
-            modelBuilder.Entity("MealHunt_Repositories.IngredientShoppingListss", b =>
+            modelBuilder.Entity("MealHunt_Repositories.IngredientShoppingList", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("integer")
@@ -129,9 +129,9 @@ namespace MealHunt_Repositories.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("ingredient_id");
 
-                    b.Property<int?>("ShoppingListsId")
+                    b.Property<int?>("ShoppingListId")
                         .HasColumnType("integer")
-                        .HasColumnName("shoppingLists_id");
+                        .HasColumnName("shopping_list_id");
 
                     b.Property<int?>("Status")
                         .HasColumnType("integer")
@@ -142,9 +142,9 @@ namespace MealHunt_Repositories.Migrations
 
                     b.HasIndex("IngredientId");
 
-                    b.HasIndex("ShoppingListsId");
+                    b.HasIndex("ShoppingListId");
 
-                    b.ToTable("ingredientShoppingListss", (string)null);
+                    b.ToTable("ingredient_shopping_lists", (string)null);
                 });
 
             modelBuilder.Entity("MealHunt_Repositories.Post", b =>
@@ -268,7 +268,7 @@ namespace MealHunt_Repositories.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("recipeIngredients", (string)null);
+                    b.ToTable("recipe_ingredients", (string)null);
                 });
 
             modelBuilder.Entity("MealHunt_Repositories.RecipeTag", b =>
@@ -297,7 +297,7 @@ namespace MealHunt_Repositories.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("status");
 
-                    b.Property<int?>("TagsId")
+                    b.Property<int?>("TagId")
                         .HasColumnType("integer")
                         .HasColumnName("tags_id");
 
@@ -306,9 +306,9 @@ namespace MealHunt_Repositories.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.HasIndex("TagsId");
+                    b.HasIndex("TagId");
 
-                    b.ToTable("recipeTags", (string)null);
+                    b.ToTable("recipe_tags", (string)null);
                 });
 
             modelBuilder.Entity("MealHunt_Repositories.SavedRecipe", b =>
@@ -343,7 +343,7 @@ namespace MealHunt_Repositories.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("savedRecipes", (string)null);
+                    b.ToTable("saved_recipes", (string)null);
                 });
 
             modelBuilder.Entity("MealHunt_Repositories.ShoppingList", b =>
@@ -378,7 +378,7 @@ namespace MealHunt_Repositories.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("shoppingLists", (string)null);
+                    b.ToTable("shopping_lists", (string)null);
                 });
 
             modelBuilder.Entity("MealHunt_Repositories.Tag", b =>
@@ -497,21 +497,21 @@ namespace MealHunt_Repositories.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MealHunt_Repositories.IngredientShoppingListss", b =>
+            modelBuilder.Entity("MealHunt_Repositories.IngredientShoppingList", b =>
                 {
                     b.HasOne("MealHunt_Repositories.Ingredient", "Ingredient")
-                        .WithMany("IngredientShoppingListsses")
+                        .WithMany("IngredientShoppingLists")
                         .HasForeignKey("IngredientId")
                         .HasConstraintName("FK__ingredien__ingre__52593CB8");
 
-                    b.HasOne("MealHunt_Repositories.ShoppingList", "ShoppingLists")
-                        .WithMany("IngredientShoppingListsses")
-                        .HasForeignKey("ShoppingListsId")
+                    b.HasOne("MealHunt_Repositories.ShoppingList", "ShoppingList")
+                        .WithMany("IngredientShoppingLists")
+                        .HasForeignKey("ShoppingListId")
                         .HasConstraintName("FK__ingredien__shopp__534D60F1");
 
                     b.Navigation("Ingredient");
 
-                    b.Navigation("ShoppingLists");
+                    b.Navigation("ShoppingList");
                 });
 
             modelBuilder.Entity("MealHunt_Repositories.Post", b =>
@@ -548,14 +548,14 @@ namespace MealHunt_Repositories.Migrations
                         .HasForeignKey("RecipeId")
                         .HasConstraintName("FK__recipeTag__recip__4E88ABD4");
 
-                    b.HasOne("MealHunt_Repositories.Tag", "Tags")
+                    b.HasOne("MealHunt_Repositories.Tag", "Tag")
                         .WithMany("RecipeTags")
-                        .HasForeignKey("TagsId")
+                        .HasForeignKey("TagId")
                         .HasConstraintName("FK__recipeTag__tags___4F7CD00D");
 
                     b.Navigation("Recipe");
 
-                    b.Navigation("Tags");
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("MealHunt_Repositories.SavedRecipe", b =>
@@ -594,7 +594,7 @@ namespace MealHunt_Repositories.Migrations
 
             modelBuilder.Entity("MealHunt_Repositories.Ingredient", b =>
                 {
-                    b.Navigation("IngredientShoppingListsses");
+                    b.Navigation("IngredientShoppingLists");
 
                     b.Navigation("RecipeIngredients");
                 });
@@ -617,7 +617,7 @@ namespace MealHunt_Repositories.Migrations
 
             modelBuilder.Entity("MealHunt_Repositories.ShoppingList", b =>
                 {
-                    b.Navigation("IngredientShoppingListsses");
+                    b.Navigation("IngredientShoppingLists");
                 });
 
             modelBuilder.Entity("MealHunt_Repositories.Tag", b =>

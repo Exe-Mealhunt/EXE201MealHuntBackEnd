@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MealHunt_Repositories;
+namespace MealHunt_Services.BusinessModels;
 
-public partial class RecipeTag
+public partial class RecipeTagModel
 {
     public int Id { get; set; }
 
@@ -17,7 +17,7 @@ public partial class RecipeTag
 
     public int? Status { get; set; }
 
-    public virtual Recipe? Recipe { get; set; }
+    public virtual RecipeModel? Recipe { get; set; }
 
-    public virtual Tag? Tag { get; set; }
+    public virtual TagModel? Tag { get; set; }
 }
