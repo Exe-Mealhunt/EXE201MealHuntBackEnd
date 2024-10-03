@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MealHunt_Repositories;
+namespace MealHunt_Repositories.Entities;
 
 public partial class Recipe
 {
     public int Id { get; set; }
+
+    public int? OccasionId { get; set; }
 
     public string? Name { get; set; }
 
@@ -13,13 +15,17 @@ public partial class Recipe
 
     public string? Video { get; set; }
 
+    public string? Content { get; set; }
+
+    public string? Tutorial { get; set; }
+
     public int? Status { get; set; }
 
     public byte[] CreatedAt { get; set; } = null!;
 
-    public virtual ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
+    public virtual Occasion? Occasion { get; set; }
 
-    public virtual ICollection<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
+    public virtual ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
 
     public virtual ICollection<SavedRecipe> SavedRecipes { get; set; } = new List<SavedRecipe>();
 

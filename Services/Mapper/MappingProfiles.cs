@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MealHunt_Repositories;
+using MealHunt_Repositories.Entities;
 using MealHunt_Services.BusinessModels;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,11 @@ namespace MealHunt_Services.Mapper
             CreateMap<Post, PostModel>().ReverseMap();
             CreateMap<RecipeIngredient, RecipeIngredientModel>().ReverseMap();
             CreateMap<Recipe, RecipeModel>().ReverseMap();
-            CreateMap<RecipeTag, RecipeTagModel>().ReverseMap();
+            CreateMap<Category, CategoryModel>().ReverseMap();
             CreateMap<SavedRecipe, SavedRecipeModel>().ReverseMap();
             CreateMap<ShoppingList, ShoppingListModel>().ReverseMap();
-            CreateMap<Tag, TagModel>().ReverseMap();
-            CreateMap<Tip, TipModel>().ReverseMap();
+            CreateMap<IngredientCategory, IngredientCategoryModel>().ReverseMap();
+            CreateMap<Occasion, OccasionModel>().ReverseMap();
         }
     }
 }

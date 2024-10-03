@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MealHunt_Repositories;
+namespace MealHunt_Repositories.Entities;
 
-public partial class Tag
+public partial class Category
 {
     public int Id { get; set; }
 
@@ -13,5 +13,5 @@ public partial class Tag
 
     public int? Status { get; set; }
 
-    public virtual ICollection<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
+    public virtual ICollection<IngredientCategory> IngredientCategories { get; set; } = new List<IngredientCategory>();
 }

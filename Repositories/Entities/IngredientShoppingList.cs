@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MealHunt_Repositories;
+namespace MealHunt_Repositories.Entities;
 
 public partial class IngredientShoppingList
 {
@@ -9,7 +9,7 @@ public partial class IngredientShoppingList
 
     public int? IngredientId { get; set; }
 
-    public int? ShoppingListId { get; set; }
+    public int? ShoppingListsId { get; set; }
 
     public byte[] CreatedAt { get; set; } = null!;
 
@@ -17,5 +17,5 @@ public partial class IngredientShoppingList
 
     public virtual Ingredient? Ingredient { get; set; }
 
-    public virtual ShoppingList? ShoppingList { get; set; }
+    public virtual ShoppingList? ShoppingLists { get; set; }
 }

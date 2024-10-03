@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MealHunt_Services.BusinessModels;
+namespace MealHunt_Repositories.Entities;
 
-public partial class TagModel
+public partial class Occasion
 {
     public int Id { get; set; }
 
@@ -13,5 +13,5 @@ public partial class TagModel
 
     public int? Status { get; set; }
 
-    public virtual List<RecipeTagModel> RecipeTags { get; set; } = new List<RecipeTagModel>();
+    public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }
