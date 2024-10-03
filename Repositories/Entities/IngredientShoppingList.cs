@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BusinessObjects;
+namespace Repositories.Entities;
 
-public partial class IngredientShoppingListss
+public partial class IngredientShoppingList
 {
     public int Id { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BusinessObjects;
+namespace Repositories.Entities;
 
 public partial class Ingredient
 {
@@ -19,7 +19,9 @@ public partial class Ingredient
 
     public int? Status { get; set; }
 
-    public virtual ICollection<IngredientShoppingListss> IngredientShoppingListsses { get; set; } = new List<IngredientShoppingListss>();
+    public virtual ICollection<IngredientCategory> IngredientCategories { get; set; } = new List<IngredientCategory>();
+
+    public virtual ICollection<IngredientShoppingList> IngredientShoppingLists { get; set; } = new List<IngredientShoppingList>();
 
     public virtual ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
 }

@@ -3,19 +3,15 @@ using System.Collections.Generic;
 
 namespace Repositories.Entities;
 
-public partial class SavedRecipe
+public partial class Occasion
 {
     public int Id { get; set; }
 
-    public int? RecipeId { get; set; }
-
-    public int? UserId { get; set; }
+    public string? Name { get; set; }
 
     public byte[] CreatedAt { get; set; } = null!;
 
     public int? Status { get; set; }
 
-    public virtual Recipe? Recipe { get; set; }
-
-    public virtual User? User { get; set; }
+    public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 }
