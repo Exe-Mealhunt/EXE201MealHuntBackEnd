@@ -21,7 +21,7 @@ public partial class Recipe
 
     public int? Status { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
 
     public virtual Occasion? Occasion { get; set; }
 

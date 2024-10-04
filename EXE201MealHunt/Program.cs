@@ -1,5 +1,6 @@
 using MealHunt_APIs.ServiceExtensions;
 using MealHunt_Repositories;
+using MealHunt_Repositories.Data;
 using MealHunt_Repositories.Implements;
 using MealHunt_Repositories.Interfaces;
 using MealHunt_Services.Implements;
@@ -13,6 +14,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
 
 // Add dbcontext
 builder.Services.AddDbContext<MealHuntContext>();

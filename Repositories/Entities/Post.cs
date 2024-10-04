@@ -15,7 +15,7 @@ public partial class Post
 
     public double? Rating { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
 
     public int? Status { get; set; }
 

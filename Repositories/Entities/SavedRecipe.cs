@@ -11,8 +11,7 @@ public partial class SavedRecipe
 
     public int? UserId { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
-
+    public DateTime CreatedAt { get; set; }
     public int? Status { get; set; }
 
     public virtual Recipe? Recipe { get; set; }

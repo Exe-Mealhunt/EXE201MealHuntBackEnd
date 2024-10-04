@@ -11,7 +11,7 @@ public partial class IngredientShoppingList
 
     public int? ShoppingListsId { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
 
     public int? Status { get; set; }
 

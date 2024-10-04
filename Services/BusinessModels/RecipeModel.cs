@@ -15,11 +15,11 @@ public partial class RecipeModel
 
     public int? Status { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
 
     public virtual List<RecipeIngredientModel> RecipeIngredients { get; set; } = new List<RecipeIngredientModel>();
 
-    public virtual List<RecipeTagModel> RecipeTags { get; set; } = new List<RecipeTagModel>();
+    //public virtual List<RecipeTagModel> RecipeTags { get; set; } = new List<RecipeTagModel>();
 
     public virtual List<SavedRecipeModel> SavedRecipes { get; set; } = new List<SavedRecipeModel>();
 
