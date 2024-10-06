@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MealHunt_Services.CustomModels.ResponseModels
 {
-    public class RegisterResponse
+    public class LoginResponse
     {
         public string? FullName { get; set; }
 

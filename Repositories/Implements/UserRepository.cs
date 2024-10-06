@@ -1,4 +1,6 @@
-﻿using MealHunt_Repositories.Interfaces;
+﻿using MealHunt_Repositories.Data;
+using MealHunt_Repositories.Entities;
+using MealHunt_Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,10 +28,6 @@ public class UserRepository : IUserRepository
         try
         {
             await _context.Users.AddAsync(user);
-
-            var entry = _context.Entry(user);
-            Console.WriteLine($"Entity State before saving: {entry.State}");
-
             await _context.SaveChangesAsync();
         }
         catch (Exception ex)
@@ -63,22 +61,6 @@ public class UserRepository : IUserRepository
         try
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
-
-    public async Task<User?> GetUserByUsername(string username)
-    {
-        if(string.IsNullOrEmpty(username) || string.IsNullOrWhiteSpace(username))
-        {
-            throw new Exception("Usename is required!");
-        }
-        try
-        {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Username.Equals(username));
         }
         catch (Exception ex)
         {

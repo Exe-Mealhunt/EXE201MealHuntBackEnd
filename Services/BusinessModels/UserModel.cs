@@ -7,7 +7,7 @@ public partial class UserModel
 {
     public int Id { get; set; }
 
-    public string? Username { get; set; }
+    public string? FullName { get; set; }
 
     public string? Email { get; set; }
 
@@ -15,7 +15,7 @@ public partial class UserModel
 
     public string? Role { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
+    public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
     public int? Status { get; set; }
 

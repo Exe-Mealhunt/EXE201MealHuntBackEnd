@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Services\MealHunt_Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\RequestModel\" />
+  </ItemGroup>
+
 </Project>

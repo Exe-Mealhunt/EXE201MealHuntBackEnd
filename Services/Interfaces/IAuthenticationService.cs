@@ -12,6 +12,6 @@ namespace MealHunt_Services.Interfaces
     {
         Task<RegisterResponse> Register(RegisterRequest request);
 
-        //Task<RegisterResponse> Login(RegisterRequest request);
+        Task<LoginResponse> Login(LoginRequest request);
     }
 }

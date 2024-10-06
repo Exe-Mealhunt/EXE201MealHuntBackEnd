@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MealHunt_Repositories;
+namespace MealHunt_Repositories.Entities;
 
 public partial class ShoppingList
 {
@@ -11,7 +11,7 @@ public partial class ShoppingList
 
     public int? UserId { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
 
     public int? Status { get; set; }
 

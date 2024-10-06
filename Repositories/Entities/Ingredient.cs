@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MealHunt_Repositories;
+namespace MealHunt_Repositories.Entities;
 
 public partial class Ingredient
 {
@@ -15,9 +15,11 @@ public partial class Ingredient
 
     public double? Quantity { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
 
     public int? Status { get; set; }
+
+    public virtual ICollection<IngredientCategory> IngredientCategories { get; set; } = new List<IngredientCategory>();
 
     public virtual ICollection<IngredientShoppingList> IngredientShoppingLists { get; set; } = new List<IngredientShoppingList>();
 

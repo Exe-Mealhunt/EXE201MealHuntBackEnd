@@ -17,7 +17,7 @@ namespace MealHunt_APIs.Controllers
             _authenticationService = authenticationService;
         }
 
-        [HttpPost("login")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (request == null)
@@ -25,6 +25,22 @@ namespace MealHunt_APIs.Controllers
             try
             {
                 var response = await _authenticationService.Register(request);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            if (request == null)
+                return BadRequest("User is required!");
+            try
+            {
+                var response = await _authenticationService.Login(request);
                 return Ok(response);
             }
             catch (Exception ex)

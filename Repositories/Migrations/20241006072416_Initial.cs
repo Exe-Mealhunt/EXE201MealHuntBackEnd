@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -11,6 +13,20 @@ namespace MealHunt_Repositories.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "categories",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
+                    status = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__categori__3213E83FD239E576", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ingredients",
                 columns: table => new
                 {
@@ -19,12 +35,70 @@ namespace MealHunt_Repositories.Migrations
                     type = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     unit = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     quantity = table.Column<double>(type: "double precision", nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__ingredie__3213E83F3D655F03", x => x.id);
+                    table.PrimaryKey("PK__ingredie__3213E83F8E5F7920", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "occasions",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
+                    status = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__occasion__3213E83F7E4E508E", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "users",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    username = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    role = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    status = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__users__3213E83F8682BC63", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ingredientCategories",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false),
+                    ingredient_id = table.Column<int>(type: "integer", nullable: true),
+                    category_id = table.Column<int>(type: "integer", nullable: true),
+                    name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
+                    status = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__ingredie__3213E83F52FA63E0", x => x.id);
+                    table.ForeignKey(
+                        name: "FK__ingredien__categ__5070F446",
+                        column: x => x.category_id,
+                        principalTable: "categories",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK__ingredien__ingre__4F7CD00D",
+                        column: x => x.ingredient_id,
+                        principalTable: "ingredients",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -32,64 +106,49 @@ namespace MealHunt_Repositories.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
+                    occasion_id = table.Column<int>(type: "integer", nullable: true),
                     name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     user_id = table.Column<int>(type: "integer", nullable: true),
                     video = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    status = table.Column<int>(type: "integer", nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__recipes__3213E83F7E63A2BC", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tags",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false),
-                    name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
-                    status = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__tags__3213E83FA6132A10", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tips",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false),
                     content = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
-                    status = table.Column<int>(type: "integer", nullable: true)
+                    tutorial = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    status = table.Column<int>(type: "integer", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__tips__3213E83FA8BFE1CB", x => x.id);
+                    table.PrimaryKey("PK__recipes__3213E83FDEC2D5E6", x => x.id);
+                    table.ForeignKey(
+                        name: "FK__recipes__occasio__4E88ABD4",
+                        column: x => x.occasion_id,
+                        principalTable: "occasions",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "posts",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
-                    username = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    role = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: true),
+                    title = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true),
+                    content = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true),
+                    rating = table.Column<double>(type: "double precision", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__users__3213E83FE45835CA", x => x.id);
+                    table.PrimaryKey("PK__posts__3213E83F5095F241", x => x.id);
+                    table.ForeignKey(
+                        name: "FK__posts__user_id__571DF1D5",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "recipe_ingredients",
+                name: "recipeIngredients",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
@@ -97,12 +156,12 @@ namespace MealHunt_Repositories.Migrations
                     recipe_id = table.Column<int>(type: "integer", nullable: true),
                     unit = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     quantity = table.Column<double>(type: "double precision", nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__recipeIn__3213E83FD6FF7A34", x => x.id);
+                    table.PrimaryKey("PK__recipeIn__3213E83FCE3B5733", x => x.id);
                     table.ForeignKey(
                         name: "FK__recipeIng__ingre__4CA06362",
                         column: x => x.ingredient_id,
@@ -116,98 +175,50 @@ namespace MealHunt_Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "recipe_tags",
+                name: "savedRecipes",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
                     recipe_id = table.Column<int>(type: "integer", nullable: true),
-                    tags_id = table.Column<int>(type: "integer", nullable: true),
-                    name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__recipeTa__3213E83F1E9E4B89", x => x.id);
+                    table.PrimaryKey("PK__savedRec__3213E83F0007AF5A", x => x.id);
                     table.ForeignKey(
-                        name: "FK__recipeTag__recip__4E88ABD4",
+                        name: "FK__savedReci__recip__5629CD9C",
                         column: x => x.recipe_id,
                         principalTable: "recipes",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK__recipeTag__tags___4F7CD00D",
-                        column: x => x.tags_id,
-                        principalTable: "tags",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "posts",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false),
-                    user_id = table.Column<int>(type: "integer", nullable: true),
-                    title = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true),
-                    content = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true),
-                    rating = table.Column<double>(type: "double precision", nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
-                    status = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__posts__3213E83F32CDCF90", x => x.id);
-                    table.ForeignKey(
-                        name: "FK__posts__user_id__5629CD9C",
+                        name: "FK__savedReci__user___5535A963",
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "saved_recipes",
+                name: "shoppingLists",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
                     recipe_id = table.Column<int>(type: "integer", nullable: true),
                     user_id = table.Column<int>(type: "integer", nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__savedRec__3213E83F2EED4A92", x => x.id);
+                    table.PrimaryKey("PK__shopping__3213E83F19C5C534", x => x.id);
                     table.ForeignKey(
-                        name: "FK__savedReci__recip__5535A963",
+                        name: "FK__shoppingL__recip__52593CB8",
                         column: x => x.recipe_id,
                         principalTable: "recipes",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK__savedReci__user___5441852A",
-                        column: x => x.user_id,
-                        principalTable: "users",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "shopping_lists",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false),
-                    recipe_id = table.Column<int>(type: "integer", nullable: true),
-                    user_id = table.Column<int>(type: "integer", nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
-                    status = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__shopping__3213E83F1DF1A052", x => x.id);
-                    table.ForeignKey(
-                        name: "FK__shoppingL__recip__5165187F",
-                        column: x => x.recipe_id,
-                        principalTable: "recipes",
-                        principalColumn: "id");
-                    table.ForeignKey(
-                        name: "FK__shoppingL__user___5070F446",
+                        name: "FK__shoppingL__user___5165187F",
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id");
@@ -219,50 +230,50 @@ namespace MealHunt_Repositories.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
                     user_id = table.Column<int>(type: "integer", nullable: true),
-                    reply_to_id = table.Column<int>(type: "integer", nullable: true),
+                    replyTo_id = table.Column<int>(type: "integer", nullable: true),
                     post_id = table.Column<int>(type: "integer", nullable: true),
                     content = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true),
                     rating = table.Column<double>(type: "double precision", nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__comments__3213E83F3AFAC6D4", x => x.id);
+                    table.PrimaryKey("PK__comments__3213E83FEFE461DC", x => x.id);
                     table.ForeignKey(
-                        name: "FK__comments__post_i__571DF1D5",
+                        name: "FK__comments__post_i__5812160E",
                         column: x => x.post_id,
                         principalTable: "posts",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK__comments__user_i__5812160E",
+                        name: "FK__comments__user_i__59063A47",
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ingredient_shopping_lists",
+                name: "ingredientShoppingLists",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false),
                     ingredient_id = table.Column<int>(type: "integer", nullable: true),
-                    shopping_list_id = table.Column<int>(type: "integer", nullable: true),
-                    created_at = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false),
+                    shoppingLists_id = table.Column<int>(type: "integer", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", rowVersion: true, nullable: false),
                     status = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__ingredie__3213E83FF39B2E86", x => x.id);
+                    table.PrimaryKey("PK__ingredie__3213E83F65AF0674", x => x.id);
                     table.ForeignKey(
-                        name: "FK__ingredien__ingre__52593CB8",
+                        name: "FK__ingredien__ingre__534D60F1",
                         column: x => x.ingredient_id,
                         principalTable: "ingredients",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK__ingredien__shopp__534D60F1",
-                        column: x => x.shopping_list_id,
-                        principalTable: "shopping_lists",
+                        name: "FK__ingredien__shopp__5441852A",
+                        column: x => x.shoppingLists_id,
+                        principalTable: "shoppingLists",
                         principalColumn: "id");
                 });
 
@@ -277,14 +288,24 @@ namespace MealHunt_Repositories.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingredient_shopping_lists_ingredient_id",
-                table: "ingredient_shopping_lists",
+                name: "IX_ingredientCategories_category_id",
+                table: "ingredientCategories",
+                column: "category_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ingredientCategories_ingredient_id",
+                table: "ingredientCategories",
                 column: "ingredient_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingredient_shopping_lists_shopping_list_id",
-                table: "ingredient_shopping_lists",
-                column: "shopping_list_id");
+                name: "IX_ingredientShoppingLists_ingredient_id",
+                table: "ingredientShoppingLists",
+                column: "ingredient_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ingredientShoppingLists_shoppingLists_id",
+                table: "ingredientShoppingLists",
+                column: "shoppingLists_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_posts_user_id",
@@ -292,43 +313,38 @@ namespace MealHunt_Repositories.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_recipe_ingredients_ingredient_id",
-                table: "recipe_ingredients",
+                name: "IX_recipeIngredients_ingredient_id",
+                table: "recipeIngredients",
                 column: "ingredient_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_recipe_ingredients_recipe_id",
-                table: "recipe_ingredients",
+                name: "IX_recipeIngredients_recipe_id",
+                table: "recipeIngredients",
                 column: "recipe_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_recipe_tags_recipe_id",
-                table: "recipe_tags",
+                name: "IX_recipes_occasion_id",
+                table: "recipes",
+                column: "occasion_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_savedRecipes_recipe_id",
+                table: "savedRecipes",
                 column: "recipe_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_recipe_tags_tags_id",
-                table: "recipe_tags",
-                column: "tags_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_saved_recipes_recipe_id",
-                table: "saved_recipes",
-                column: "recipe_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_saved_recipes_user_id",
-                table: "saved_recipes",
+                name: "IX_savedRecipes_user_id",
+                table: "savedRecipes",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_shopping_lists_recipe_id",
-                table: "shopping_lists",
+                name: "IX_shoppingLists_recipe_id",
+                table: "shoppingLists",
                 column: "recipe_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_shopping_lists_user_id",
-                table: "shopping_lists",
+                name: "IX_shoppingLists_user_id",
+                table: "shoppingLists",
                 column: "user_id");
         }
 
@@ -339,37 +355,37 @@ namespace MealHunt_Repositories.Migrations
                 name: "comments");
 
             migrationBuilder.DropTable(
-                name: "ingredient_shopping_lists");
+                name: "ingredientCategories");
 
             migrationBuilder.DropTable(
-                name: "recipe_ingredients");
+                name: "ingredientShoppingLists");
 
             migrationBuilder.DropTable(
-                name: "recipe_tags");
+                name: "recipeIngredients");
 
             migrationBuilder.DropTable(
-                name: "saved_recipes");
-
-            migrationBuilder.DropTable(
-                name: "tips");
+                name: "savedRecipes");
 
             migrationBuilder.DropTable(
                 name: "posts");
 
             migrationBuilder.DropTable(
-                name: "shopping_lists");
+                name: "categories");
+
+            migrationBuilder.DropTable(
+                name: "shoppingLists");
 
             migrationBuilder.DropTable(
                 name: "ingredients");
-
-            migrationBuilder.DropTable(
-                name: "tags");
 
             migrationBuilder.DropTable(
                 name: "recipes");
 
             migrationBuilder.DropTable(
                 name: "users");
+
+            migrationBuilder.DropTable(
+                name: "occasions");
         }
     }
 }

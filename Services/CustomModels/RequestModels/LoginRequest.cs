@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace MealHunt_Services.CustomModels.RequestModels
 {
-    public class RegisterRequest
+    public class LoginRequest
     {
-        [Required]
-        public string FullName { get; set; }
-
         [Required]
         public string Email { get; set; }
 

@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace MealHunt_Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface ICategoryRepository
     {
-        Task AddUser(User user);
-
-        Task<User?> FindUserById(int id);
-
-        Task<User?> GetUserByEmail(string email);
+        Task<List<Category>> GetAll();
     }
 }

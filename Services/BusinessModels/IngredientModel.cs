@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace MealHunt_Services.BusinessModels;
 
@@ -15,11 +16,15 @@ public partial class IngredientModel
 
     public double? Quantity { get; set; }
 
-    public byte[] CreatedAt { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
 
     public int? Status { get; set; }
 
     public virtual List<IngredientShoppingListModel> IngredientShoppingLists { get; set; } = new List<IngredientShoppingListModel>();
 
+    [JsonIgnore]
     public virtual List<RecipeIngredientModel> RecipeIngredients { get; set; } = new List<RecipeIngredientModel>();
+
+    [JsonIgnore]
+    public virtual List<IngredientCategoryModel> IngredientCategoryModels { get; set; } = new List<IngredientCategoryModel>();
 }
