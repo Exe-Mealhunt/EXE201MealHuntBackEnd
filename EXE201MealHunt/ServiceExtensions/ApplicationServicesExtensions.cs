@@ -33,6 +33,7 @@ namespace MealHunt_APIs.ServiceExtensions
         {
             // Add your services here
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             return services;
         }

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MealHunt_Repositories.Migrations
 {
     [DbContext(typeof(MealHuntContext))]
-    [Migration("20241002160004_Initial")]
+    [Migration("20241002174436_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
