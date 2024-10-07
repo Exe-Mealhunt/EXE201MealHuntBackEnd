@@ -24,17 +24,21 @@ namespace MealHunt_Services.Mapper
 
             // Users
             CreateMap<User, UserModel>().ReverseMap();
+            //CreateMap<RegisterRequest, User>()
+            //    .ConstructUsing(src => new User())
+            //    //.ForMember(dest => dest.Id, opt => opt.Ignore())
+            //    //.ForMember(dest => dest.CreatedAt, opt => opt.Ignore())  // If `CreatedAt` is set elsewhere
+            //    //.ForMember(dest => dest.Role, opt => opt.Ignore())       // If `Role` is set elsewhere
+            //    //.ForMember(dest => dest.Status, opt => opt.Ignore())     // If `Status` is set elsewhere
+            //    //.ForMember(dest => dest.Comments, opt => opt.Ignore())   // Since Comments are not part of the request
+            //    //.ForMember(dest => dest.Posts, opt => opt.Ignore())      // Ignore Posts
+            //    //.ForMember(dest => dest.SavedRecipes, opt => opt.Ignore()) // Ignore SavedRecipes
+            //    //.ForMember(dest => dest.ShoppingLists, opt => opt.Ignore())
+            //    ;
             CreateMap<RegisterRequest, User>()
-                .ConstructUsing(src => new User())
-                //.ForMember(dest => dest.Id, opt => opt.Ignore())
-                //.ForMember(dest => dest.CreatedAt, opt => opt.Ignore())  // If `CreatedAt` is set elsewhere
-                //.ForMember(dest => dest.Role, opt => opt.Ignore())       // If `Role` is set elsewhere
-                //.ForMember(dest => dest.Status, opt => opt.Ignore())     // If `Status` is set elsewhere
-                //.ForMember(dest => dest.Comments, opt => opt.Ignore())   // Since Comments are not part of the request
-                //.ForMember(dest => dest.Posts, opt => opt.Ignore())      // Ignore Posts
-                //.ForMember(dest => dest.SavedRecipes, opt => opt.Ignore()) // Ignore SavedRecipes
-                //.ForMember(dest => dest.ShoppingLists, opt => opt.Ignore())
-                ; 
+                .ConstructUsing(src => new User());
+            CreateMap<RegisterRequest, UserModel>()
+                .ConstructUsing(src => new UserModel());
             CreateMap<User, RegisterResponse>();
             CreateMap<UserModel, LoginResponse>();
 

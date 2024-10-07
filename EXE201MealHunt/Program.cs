@@ -5,6 +5,8 @@ using MealHunt_Repositories.Implements;
 using MealHunt_Repositories.Interfaces;
 using MealHunt_Services.Implements;
 using MealHunt_Services.Interfaces;
+using MealHunt_Services.Mapper;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +21,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MealHuntContext>();
 
 // Auto Mapper
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+
 
 // Service Extensions
 builder.Services.AddApplicationServices();

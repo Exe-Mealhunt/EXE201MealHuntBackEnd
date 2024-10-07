@@ -3,6 +3,8 @@ using MealHunt_Repositories.Implements;
 using MealHunt_Repositories.Interfaces;
 using MealHunt_Services.Implements;
 using MealHunt_Services.Interfaces;
+using MealHunt_Services.Mapper;
+using System.Reflection;
 
 namespace MealHunt_APIs.ServiceExtensions
 {
@@ -16,7 +18,9 @@ namespace MealHunt_APIs.ServiceExtensions
             services
                 .AddRepositories()
                 .AddServices()
-                .AddCorsConfiguration();
+                .AddCorsConfiguration()
+                ;
+            ;
 
             return services;
         }
@@ -28,6 +32,7 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IOccasionRepository, OccasionRepository>();
 
             return services;
         }
@@ -40,6 +45,7 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IOccasionService, OccasionService>();
 
             return services;
         }
