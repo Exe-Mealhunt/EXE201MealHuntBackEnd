@@ -8,6 +8,8 @@ using MealHunt_Services.Interfaces;
 using MealHunt_Services.Mapper;
 using System.Reflection;
 
+var MyAllowSpecificOrigins = "myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -30,12 +32,16 @@ builder.Services.AddApplicationServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.MapControllers();
