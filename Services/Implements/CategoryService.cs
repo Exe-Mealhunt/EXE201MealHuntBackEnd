@@ -26,6 +26,7 @@ namespace MealHunt_Services.Implements
             try
             {
                 var categories = await _categoryRepository.GetAll();
+                categories = categories.Where(c => c.IngredientCategories.Any()).ToList();
                 var response = _mapper.Map<List<CategoryModel>>(categories);
                 return response;
             }

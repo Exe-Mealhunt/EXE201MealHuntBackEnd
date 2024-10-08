@@ -19,6 +19,10 @@ public partial class Recipe
 
     public string? Tutorial { get; set; }
 
+    public string? ImageUrl { get; set; }
+
+    public int? CookingTime { get; set; }
+
     public int? Status { get; set; }
 
     public DateTime CreatedAt { get; set; }

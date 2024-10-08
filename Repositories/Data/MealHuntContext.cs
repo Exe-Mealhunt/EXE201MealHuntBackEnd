@@ -72,7 +72,10 @@ public partial class MealHuntContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.Status).HasColumnName("status");
-            
+            entity.Property(e => e.ImageUrl)
+                .HasMaxLength(255)
+                .HasColumnName("image_url");
+
         });
 
         modelBuilder.Entity<Comment>(entity =>
@@ -199,6 +202,9 @@ public partial class MealHuntContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.ImageUrl)
+                .HasMaxLength(255)
+                .HasColumnName("image_url");
         });
 
         modelBuilder.Entity<Post>(entity =>
@@ -252,12 +258,17 @@ public partial class MealHuntContext : DbContext
             entity.Property(e => e.OccasionId).HasColumnName("occasion_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Tutorial)
-                .HasMaxLength(255)
+                .HasMaxLength(5000)
                 .HasColumnName("tutorial");
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Video)
                 .HasMaxLength(255)
                 .HasColumnName("video");
+            entity.Property(e => e.ImageUrl)
+                .HasMaxLength(255)
+                .HasColumnName("image_url");
+            entity.Property(e => e.CookingTime)
+                .HasColumnName("cooking_time");
 
             entity.HasOne(d => d.Occasion).WithMany(p => p.Recipes)
                 .HasForeignKey(d => d.OccasionId)

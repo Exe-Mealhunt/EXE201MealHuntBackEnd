@@ -9,6 +9,8 @@ public partial class Category
 
     public string? Name { get; set; }
 
+    public string? ImageUrl { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public int? Status { get; set; }
