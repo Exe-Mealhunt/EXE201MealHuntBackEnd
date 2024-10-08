@@ -11,8 +11,6 @@ public partial class IngredientCategory
 
     public int? CategoryId { get; set; }
 
-    public string? Name { get; set; }
-
     public DateTime CreatedAt { get; set; }
 
     public int? Status { get; set; }

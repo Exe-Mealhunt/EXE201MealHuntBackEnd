@@ -10,11 +10,11 @@ public partial class IngredientModel
 
     public string? IngredientName { get; set; }
 
-    public string? Type { get; set; }
+    //public string? Type { get; set; }
 
-    public string? Unit { get; set; }
+    //public string? Unit { get; set; }
 
-    public double? Quantity { get; set; }
+    //public double? Quantity { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

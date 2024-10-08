@@ -43,7 +43,7 @@ public partial class MealHuntContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql(GetConnectionString());
+        => optionsBuilder.UseNpgsql("Host=ep-winter-forest-a1s38rnz-pooler.ap-southeast-1.aws.neon.tech;Port=5432;Username=default;Password=4xi9lNBgLVTs;Database=verceldb;");
     private string GetConnectionString()
     {
         IConfiguration configuration = new ConfigurationBuilder()
@@ -64,13 +64,15 @@ public partial class MealHuntContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
-                .HasColumnName("created_at");
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
+                .HasColumnName("created_at")
+                .ValueGeneratedOnAdd();         
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.Status).HasColumnName("status");
+            
         });
 
         modelBuilder.Entity<Comment>(entity =>
@@ -114,20 +116,16 @@ public partial class MealHuntContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("created_at");
             entity.Property(e => e.IngredientName)
                 .HasMaxLength(255)
                 .HasColumnName("ingredient_name");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            
             entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.Type)
-                .HasMaxLength(255)
-                .HasColumnName("type");
-            entity.Property(e => e.Unit)
-                .HasMaxLength(255)
-                .HasColumnName("unit");
+            
         });
 
         modelBuilder.Entity<IngredientCategory>(entity =>
@@ -141,13 +139,11 @@ public partial class MealHuntContext : DbContext
                 .HasColumnName("id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("created_at");
             entity.Property(e => e.IngredientId).HasColumnName("ingredient_id");
-            entity.Property(e => e.Name)
-                .HasMaxLength(255)
-                .HasColumnName("name");
             entity.Property(e => e.Status).HasColumnName("status");
 
             entity.HasOne(d => d.Category).WithMany(p => p.IngredientCategories)
@@ -195,8 +191,9 @@ public partial class MealHuntContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
@@ -245,8 +242,9 @@ public partial class MealHuntContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("content");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)

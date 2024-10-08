@@ -1,3 +1,4 @@
+using MealHunt_APIs;
 using MealHunt_APIs.ServiceExtensions;
 using MealHunt_Repositories;
 using MealHunt_Repositories.Data;
@@ -25,11 +26,29 @@ builder.Services.AddDbContext<MealHuntContext>();
 // Auto Mapper
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
+// Seed data
+builder.Services.AddTransient<Seed>();
+
 
 // Service Extensions
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
+
+//Seed data
+void SeedData(IHost app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<Seed>();
+        service.SeedDataContext();
+    }
+}
+
+if (args.Length == 1 && args[0].ToLower() == "seeddata")
+    SeedData(app);
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())

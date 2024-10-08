@@ -45,8 +45,13 @@ namespace MealHunt_Repositories.Implements
                     // Ingredient names
                     if (parameters.IngredientNames.Length > 0)
                     {
+                        //recipesQuery = recipesQuery
+                        //    .Where(r => CheckRecipeHasIngredients(parameters.IngredientNames, r));
+
                         recipesQuery = recipesQuery
-                            .Where(r => CheckRecipeHasIngredients(parameters.IngredientNames, r));
+                            .Where(r => parameters.IngredientNames
+                                .All(ingredientName => r.RecipeIngredients
+                                    .Any(ri => ri.Ingredient.IngredientName.Trim().ToLower().Equals(ingredientName.Trim().ToLower()))));
                     }
 
                     // Occasion name
