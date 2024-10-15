@@ -25,6 +25,10 @@ public partial class RecipeModel
 
     public DateTime CreatedAt { get; set; }
 
+    public int? OccasionId { get; set; }
+
+    public virtual OccasionModel? Occasion { get; set; }
+
     public virtual List<RecipeIngredientModel> RecipeIngredients { get; set; } = new List<RecipeIngredientModel>();
 
     //public virtual List<RecipeTagModel> RecipeTags { get; set; } = new List<RecipeTagModel>();

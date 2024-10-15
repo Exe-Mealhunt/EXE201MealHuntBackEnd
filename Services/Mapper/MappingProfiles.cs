@@ -44,15 +44,21 @@ namespace MealHunt_Services.Mapper
 
             // Recipes
             CreateMap<Recipe, RecipeModel>().ReverseMap();
+            CreateMap<Recipe, RecipeDetailsResponse>()
+                .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => RecipeIngredientsToIngredients(src.RecipeIngredients)));
+            CreateMap<Recipe, RecipeListResponse>();
 
             // Ingredients
             CreateMap<Ingredient, IngredientModel>().ReverseMap();
+            CreateMap<Ingredient, Ingredient4RecipeDetails>();
 
             // Posts
             CreateMap<Post, PostModel>().ReverseMap();
 
             // Categories
             CreateMap<Category, CategoryModel>().ReverseMap();
+            CreateMap<Category, CategoryWithIngredientsResponse>()
+                .ForMember(dest => dest.IngredientNames, opt => opt.MapFrom(src => IngredientCategoriesToIngredientNames(src.IngredientCategories)));
 
             // Occasions
             CreateMap<Occasion, OccasionModel>().ReverseMap();
@@ -68,13 +74,51 @@ namespace MealHunt_Services.Mapper
             
             // Recipe ingredients
             CreateMap<RecipeIngredient, RecipeIngredientModel>().ReverseMap();
-            
+            CreateMap<RecipeIngredient, Ingredient4RecipeDetails>()
+                .ForMember(dest => dest.IngredientName, opt => opt.MapFrom(src => src.Ingredient.IngredientName));
+
             // Saved recipes
             CreateMap<SavedRecipe, SavedRecipeModel>().ReverseMap();
             
             // Ingredient categories
             CreateMap<IngredientCategory, IngredientCategoryModel>().ReverseMap();
             
+        }
+
+        private List<string> IngredientCategoriesToIngredientNames(ICollection<IngredientCategory> ingredientCategories)
+        {
+            var ingredientNames = new List<string>();
+
+            if(ingredientCategories != null && ingredientCategories.Any())
+            {
+                foreach (IngredientCategory ingredientCategory in ingredientCategories.ToList())
+                {
+                    ingredientNames.Add(ingredientCategory.Ingredient.IngredientName);
+                }
+            }
+
+            return ingredientNames;
+        }
+
+        private List<Ingredient4RecipeDetails> RecipeIngredientsToIngredients(ICollection<RecipeIngredient> recipeIngredients)
+        {
+            var ingredients = new List<Ingredient4RecipeDetails>();
+
+            if (recipeIngredients != null && recipeIngredients.Any())
+            {
+                foreach (RecipeIngredient recipeIngredient in recipeIngredients.ToList())
+                {
+                    var ingredient = new Ingredient4RecipeDetails
+                    {
+                        IngredientName = recipeIngredient.Ingredient.IngredientName,
+                        Quantity = recipeIngredient.Quantity,
+                        Unit = recipeIngredient.Unit
+                    };
+                    ingredients.Add(ingredient);
+                }
+            }
+
+            return ingredients;
         }
     }
 }

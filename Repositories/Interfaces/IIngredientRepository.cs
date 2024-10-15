@@ -10,5 +10,7 @@ namespace MealHunt_Repositories.Interfaces
     public interface IIngredientRepository
     {
         Task<List<Ingredient>> GetIngredientsAsync(string searchValue);
+
+        Task<List<Ingredient>> GetIngredientsOfRecipe(int recipeId);
     }
 }

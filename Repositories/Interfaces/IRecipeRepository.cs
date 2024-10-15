@@ -14,5 +14,7 @@ namespace MealHunt_Repositories.Interfaces
         Task<Recipe?> GetRecipeById(int id);
 
         Task<PagedList<Recipe>> GetRecipes(RecipeParameters parameters);
+
+        Task<List<RecipeIngredient>> GetRecipeIngredientsOfRecipe(int id);
     }
 }

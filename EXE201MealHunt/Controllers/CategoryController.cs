@@ -18,7 +18,7 @@ namespace MealHunt_APIs.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetRecipes()
+        public async Task<IActionResult> GetCategories()
         {
             try
             {

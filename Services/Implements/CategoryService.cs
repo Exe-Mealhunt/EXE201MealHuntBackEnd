@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MealHunt_Repositories.Interfaces;
 using MealHunt_Services.BusinessModels;
+using MealHunt_Services.CustomModels.ResponseModels;
 using MealHunt_Services.Interfaces;
 using System;
 using System.Collections.Generic;

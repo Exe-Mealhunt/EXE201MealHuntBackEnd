@@ -1,4 +1,5 @@
 ﻿using MealHunt_Services.BusinessModels;
+using MealHunt_Services.CustomModels.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

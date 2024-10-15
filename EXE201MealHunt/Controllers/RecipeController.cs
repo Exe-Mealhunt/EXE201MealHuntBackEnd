@@ -1,4 +1,5 @@
-﻿using MealHunt_Repositories.Parameters;
+﻿using MealHunt_APIs.ViewModels.ResponseModel;
+using MealHunt_Repositories.Parameters;
 using MealHunt_Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -19,13 +20,19 @@ namespace MealHunt_APIs.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRecipeDetails(int id)
+        public async Task<IActionResult> GetRecipeDetails(int id, [FromQuery] string[] ingredientNames = null)
         {
             if (id <= 0)
                 return BadRequest("Invalid Id!");
             try
             {
-                var response = await _recipeService.GetRecipeDetails(id);
+                var recipeResponse = await _recipeService.GetRecipeDetails(id);
+                var missingIngredients = await _recipeService.GetMissingIngredientsOfRecipe(id, ingredientNames);
+                var response = new RecipeDetailsPageResponse
+                {
+                    Recipe = recipeResponse,
+                    MissingIngredients = missingIngredients
+                };
                 return Ok(response);
             }
             catch (Exception ex)

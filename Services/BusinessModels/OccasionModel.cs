@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MealHunt_Services.BusinessModels
@@ -19,6 +20,7 @@ namespace MealHunt_Services.BusinessModels
 
         public int? Status { get; set; }
 
+        [JsonIgnore]
         public virtual List<RecipeModel> Recipes { get; set; } = new List<RecipeModel>();
     }
 }

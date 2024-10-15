@@ -37,6 +37,7 @@ namespace MealHunt_Repositories.Implements
             {
                 var recipesQuery = _context.Recipes
                     .Include(r => r.RecipeIngredients).ThenInclude(ri => ri.Ingredient)
+                    .Include(r => r.Occasion)
                     .AsQueryable();
 
                 if (recipesQuery.Any())
@@ -73,6 +74,23 @@ namespace MealHunt_Repositories.Implements
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<List<RecipeIngredient>> GetRecipeIngredientsOfRecipe(int id)
+        {
+            var recipeIngredients = new List<RecipeIngredient>();   
+            try
+            {
+                recipeIngredients = await _context.RecipeIngredients
+                    .Include(ri => ri.Ingredient)
+                    .Where(ri => ri.RecipeId == id)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return recipeIngredients;
         }
 
         private bool CheckRecipeHasIngredients(string[] ingredientsName, Recipe recipe)
