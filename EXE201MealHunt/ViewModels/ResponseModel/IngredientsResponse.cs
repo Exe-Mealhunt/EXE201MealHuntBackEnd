@@ -4,5 +4,7 @@
     {
         public int Id { get; set; }
         public string? IngredientName { get; set; }
+
+        public List<string>? CategoryNames { get; set; }
     }
 }

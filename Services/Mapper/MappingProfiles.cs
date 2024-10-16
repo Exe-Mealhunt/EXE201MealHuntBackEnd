@@ -45,8 +45,10 @@ namespace MealHunt_Services.Mapper
             // Recipes
             CreateMap<Recipe, RecipeModel>().ReverseMap();
             CreateMap<Recipe, RecipeDetailsResponse>()
-                .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => RecipeIngredientsToIngredients(src.RecipeIngredients)));
-            CreateMap<Recipe, RecipeListResponse>();
+                .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => RecipeIngredientsToIngredients(src.RecipeIngredients)))
+                .ForMember(dest => dest.OccasionName, opt => opt.MapFrom(src => src.Occasion == null ? null : src.Occasion.Name));
+            CreateMap<Recipe, RecipeListResponse>()
+                .ForMember(dest => dest.OccasionName, opt => opt.MapFrom(src => src.Occasion == null ? null : src.Occasion.Name));
 
             // Ingredients
             CreateMap<Ingredient, IngredientModel>().ReverseMap();
@@ -75,7 +77,9 @@ namespace MealHunt_Services.Mapper
             // Recipe ingredients
             CreateMap<RecipeIngredient, RecipeIngredientModel>().ReverseMap();
             CreateMap<RecipeIngredient, Ingredient4RecipeDetails>()
-                .ForMember(dest => dest.IngredientName, opt => opt.MapFrom(src => src.Ingredient.IngredientName));
+                .ForMember(dest => dest.IngredientName, opt => opt.MapFrom(src => src.Ingredient.IngredientName))
+                .ForMember(dest => dest.CategoryNames, opt => opt.MapFrom(src => IngredientCategoriesToCategoryNames(src.Ingredient.IngredientCategories)))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.IngredientId));
 
             // Saved recipes
             CreateMap<SavedRecipe, SavedRecipeModel>().ReverseMap();
@@ -110,15 +114,33 @@ namespace MealHunt_Services.Mapper
                 {
                     var ingredient = new Ingredient4RecipeDetails
                     {
+                        Id = (int)recipeIngredient.IngredientId,
                         IngredientName = recipeIngredient.Ingredient.IngredientName,
                         Quantity = recipeIngredient.Quantity,
-                        Unit = recipeIngredient.Unit
+                        Unit = recipeIngredient.Unit,
+                        CategoryNames = recipeIngredient.Ingredient.IngredientCategories
+                            .Select(ic => ic.Category.Name).ToList()
                     };
                     ingredients.Add(ingredient);
                 }
             }
 
             return ingredients;
+        }
+
+        private List<string> IngredientCategoriesToCategoryNames(ICollection<IngredientCategory> ingredientCategories)
+        {
+            var categoryNames = new List<string>();
+
+            if (ingredientCategories != null && ingredientCategories.Any())
+            {
+                foreach (IngredientCategory ingredientCategory in ingredientCategories.ToList())
+                {
+                    categoryNames.Add(ingredientCategory.Category.Name);
+                }
+            }
+
+            return categoryNames;
         }
     }
 }

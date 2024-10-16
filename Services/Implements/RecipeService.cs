@@ -70,7 +70,7 @@ namespace MealHunt_Services.Implements
                 {
                     // Check for missing ingredients
                     response = response
-                        .Where(i => !ingredientNames.Contains(i.IngredientName.ToLower()))
+                        .Where(i => !ingredientNames.Contains(i.IngredientName))
                         .ToList();
                 }
                 

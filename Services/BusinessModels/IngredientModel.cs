@@ -26,5 +26,5 @@ public partial class IngredientModel
     public virtual List<RecipeIngredientModel> RecipeIngredients { get; set; } = new List<RecipeIngredientModel>();
 
     [JsonIgnore]
-    public virtual List<IngredientCategoryModel> IngredientCategoryModels { get; set; } = new List<IngredientCategoryModel>();
+    public virtual List<IngredientCategoryModel> IngredientCategories { get; set; } = new List<IngredientCategoryModel>();
 }

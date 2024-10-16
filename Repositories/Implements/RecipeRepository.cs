@@ -26,7 +26,10 @@ namespace MealHunt_Repositories.Implements
             if (id <= 0)
                 throw new ArgumentOutOfRangeException("Invalid Id!");
             return await _context.Recipes
-                .Include(r => r.RecipeIngredients).ThenInclude(ri => ri.Ingredient)
+                .Include(r => r.RecipeIngredients)
+                    .ThenInclude(ri => ri.Ingredient)
+                    .ThenInclude(i => i.IngredientCategories)
+                    .ThenInclude(ic => ic.Category)
                 .Include(r => r.Occasion)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
@@ -82,7 +85,7 @@ namespace MealHunt_Repositories.Implements
             try
             {
                 recipeIngredients = await _context.RecipeIngredients
-                    .Include(ri => ri.Ingredient)
+                    .Include(ri => ri.Ingredient).ThenInclude(i => i.IngredientCategories).ThenInclude(ic => ic.Category)
                     .Where(ri => ri.RecipeId == id)
                     .ToListAsync();
             }

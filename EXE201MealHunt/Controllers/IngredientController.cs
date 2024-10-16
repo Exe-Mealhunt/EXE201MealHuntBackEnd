@@ -31,6 +31,7 @@ namespace MealHunt_APIs.Controllers
                 {
                     Id = i.Id,
                     IngredientName = i.IngredientName,
+                    CategoryNames = i.IngredientCategories.Select(ic => ic.Category.Name).ToList()
                 });
                 return Ok(response);
             }

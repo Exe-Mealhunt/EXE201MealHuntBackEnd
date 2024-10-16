@@ -25,7 +25,9 @@ namespace MealHunt_Repositories.Implements
             try
             {
                 if (searchValue == null) searchValue = "";
-                var ingredients = await _context.Ingredients.Where(i => i.IngredientName.Contains(searchValue)).ToListAsync();
+                var ingredients = await _context.Ingredients
+                    .Include(i => i.IngredientCategories).ThenInclude(ic => ic.Category)
+                    .Where(i => i.IngredientName.Contains(searchValue)).ToListAsync();
                 return ingredients;
             }
             catch (Exception ex)

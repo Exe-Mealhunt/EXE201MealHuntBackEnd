@@ -8,12 +8,14 @@ namespace MealHunt_Services.CustomModels.ResponseModels
 {
     public class Ingredient4RecipeDetails
     {
-        //public int Id { get; set; }
+        public int Id { get; set; }
 
         public string? IngredientName { get; set; }
 
         public string? Unit { get; set; }
 
         public double? Quantity { get; set; }
+
+        public List<string>? CategoryNames { get; set; }
     }
 }

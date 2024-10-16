@@ -46,17 +46,32 @@ namespace MealHunt_APIs.Controllers
         {
             try
             {
-                var response = await _recipeService.GetRecipes(parameters);
-                var metadata = new
+                var recipes = await _recipeService.GetRecipes(parameters);
+
+                // Header
+                //var metadata = new
+                //{
+                //    totalCount = response.TotalCount,
+                //    pageSize = response.PageSize,
+                //    currentPage = response.CurrentPage,
+                //    totalPages = response.TotalPages,
+                //    hasNext = response.HasNext,
+                //    hasPrevious = response.HasPrevious
+                //};
+                //Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
+
+                // Body
+                var response = new RecipePagingResponse
                 {
-                    totalCount = response.TotalCount,
-                    pageSize = response.PageSize,
-                    currentPage = response.CurrentPage,
-                    totalPages = response.TotalPages,
-                    hasNext = response.HasNext,
-                    hasPrevious = response.HasPrevious
+                    Recipes = recipes,
+                    TotalPages = recipes.TotalPages,
+                    CurrentPage = recipes.CurrentPage,
+                    PageSize = recipes.PageSize,
+                    TotalCount = recipes.TotalCount,
+                    HasPrevious = recipes.HasPrevious,
+                    HasNext = recipes.HasNext
                 };
-                Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
+
                 return Ok(response);
             }
             catch(Exception ex)

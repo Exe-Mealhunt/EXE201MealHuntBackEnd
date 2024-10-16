@@ -32,7 +32,9 @@ namespace MealHunt_Services.CustomModels.ResponseModels
 
         //public int? OccasionId { get; set; }
 
-        public virtual OccasionModel? Occasion { get; set; }
+        //public virtual OccasionModel? Occasion { get; set; }
+
+        public string? OccasionName {  get; set; }
 
         public List<Ingredient4RecipeDetails>? Ingredients { get; set; } = new List<Ingredient4RecipeDetails>();
 
