@@ -61,7 +61,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("categories");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 //.IsRowVersion()
@@ -85,7 +85,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("comments");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Content)
                 .HasMaxLength(1)
@@ -138,7 +138,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("ingredientCategories");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
             entity.Property(e => e.CreatedAt)
@@ -165,7 +165,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("ingredientShoppingLists");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 .IsRowVersion()
@@ -214,7 +214,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("posts");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Content)
                 .HasMaxLength(1)
@@ -282,7 +282,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("recipeIngredients");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 .IsRowVersion()
@@ -312,11 +312,11 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("savedRecipes");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
                 .HasColumnName("created_at");
             entity.Property(e => e.RecipeId).HasColumnName("recipe_id");
             entity.Property(e => e.Status).HasColumnName("status");
