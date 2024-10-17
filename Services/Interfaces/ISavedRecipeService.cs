@@ -11,5 +11,6 @@ namespace MealHunt_Services.Interfaces
     public interface ISavedRecipeService
     {
         Task<SavedRecipeModel> AddSavedRecipe(int recipeId, int userId);
+        Task<List<SavedRecipeModel>> GetSavedRecipe(int userId);
     }
 }

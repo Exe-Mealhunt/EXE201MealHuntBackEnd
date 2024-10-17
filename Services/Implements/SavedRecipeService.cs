@@ -36,5 +36,12 @@ namespace MealHunt_Services.Implements
             var response = _mapper.Map<SavedRecipeModel>(savedRecipeResponse);
             return response;
         }
+
+        public async Task<List<SavedRecipeModel>> GetSavedRecipe(int userId)
+        {
+            var savedRecipes = await _savedRecipeRepository.GetSavedRecipe(userId);
+            var response = _mapper.Map<List<SavedRecipeModel>>(savedRecipes);
+            return response;
+        }
     }
 }

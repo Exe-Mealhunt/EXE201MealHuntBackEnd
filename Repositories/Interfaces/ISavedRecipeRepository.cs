@@ -10,5 +10,6 @@ namespace MealHunt_Repositories.Interfaces
     public interface ISavedRecipeRepository
     {
         Task<SavedRecipe> AddSavedRecipe(SavedRecipe savedRecipe);
+        Task<List<SavedRecipe>> GetSavedRecipe(int userId);
     }
 }
