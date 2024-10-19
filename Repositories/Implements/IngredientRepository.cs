@@ -52,5 +52,19 @@ namespace MealHunt_Repositories.Implements
             }
             return ingredients;
         }
+
+        public async Task<Ingredient> AddIngredient(Ingredient ingredient)
+        {
+            try
+            {
+                await _context.AddAsync(ingredient);
+                await _context.SaveChangesAsync();
+                return ingredient;
+            }
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
+		}
     }
 }

@@ -1,5 +1,7 @@
 ﻿using MealHunt_APIs.ViewModels.ResponseModel;
 using MealHunt_Repositories.Parameters;
+using MealHunt_Services.BusinessModels;
+using MealHunt_Services.CustomModels.RequestModels;
 using MealHunt_Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -79,5 +81,22 @@ namespace MealHunt_APIs.Controllers
                 return StatusCode(500, new {message = ex.Message});
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRecipe([FromBody] RecipeRequest recipeRequest)
+        {
+			if (recipeRequest == null)
+			{
+				return BadRequest("Recipe data is null.");
+			}
+
+			if (string.IsNullOrEmpty(recipeRequest.Name))
+			{
+				return BadRequest("Recipe name is required.");
+			}
+
+			await _recipeService.AddRecipe(recipeRequest);
+			return Ok("Recipe added successfully.");
+		}
     }
 }

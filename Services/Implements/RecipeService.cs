@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using MealHunt_Repositories.Entities;
 using MealHunt_Repositories.Interfaces;
 using MealHunt_Repositories.Pagination;
 using MealHunt_Repositories.Parameters;
 using MealHunt_Services.BusinessModels;
+using MealHunt_Services.CustomModels.RequestModels;
 using MealHunt_Services.CustomModels.ResponseModels;
 using MealHunt_Services.Interfaces;
 using System;
@@ -18,12 +20,14 @@ namespace MealHunt_Services.Implements
         private readonly IRecipeRepository _recipeRepository;
         private readonly IMapper _mapper;
         private readonly IIngredientRepository _ingredientRepository;
+        private readonly IRecipeIngredientService _recipeIngredientService;
 
-        public RecipeService(IRecipeRepository recipeRepository, IMapper mapper, IIngredientRepository ingredientRepository)
+        public RecipeService(IRecipeRepository recipeRepository, IMapper mapper, IIngredientRepository ingredientRepository, IRecipeIngredientService recipeIngredientService)
         {
             _recipeRepository = recipeRepository;
             _mapper = mapper;
             _ingredientRepository = ingredientRepository;
+            _recipeIngredientService = recipeIngredientService;
         }
 
         public async Task<RecipeDetailsResponse> GetRecipeDetails(int id)
@@ -81,5 +85,31 @@ namespace MealHunt_Services.Implements
                 throw;
             }
         }
+
+        public async Task AddRecipe(RecipeRequest recipeModel)
+        {
+            try
+            {
+                Recipe recipe = new()
+                {
+                    Name = recipeModel.Name,
+                    Tutorial = recipeModel.Tutorial,
+                    Content = recipeModel.Content,
+                    OccasionId = recipeModel.OccasionId,
+                    Video = recipeModel.Video,
+					ImageUrl = recipeModel.ImageUrl,
+                    UserId = recipeModel.UserId,
+					CreatedAt = DateTime.UtcNow,
+                };
+
+                var addedRecipe = await _recipeRepository.AddRecipe(recipe);
+
+				await _recipeIngredientService.AddAllAsync(addedRecipe, recipeModel.Ingredients);
+			}
+			catch
+			{
+				throw;
+			}
+		}
     }
 }
