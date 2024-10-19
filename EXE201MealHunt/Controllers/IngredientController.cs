@@ -1,4 +1,5 @@
 ﻿using MealHunt_APIs.ViewModels.ResponseModel;
+using MealHunt_Services.CustomModels.RequestModels;
 using MealHunt_Services.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -41,5 +42,24 @@ namespace MealHunt_APIs.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddIngredient([FromBody] IngredientRequest ingredientRequest)
+        {
+            if (ingredientRequest == null)
+            {
+                return BadRequest("Ingredient is null");
+            }
+            else if (string.IsNullOrEmpty(ingredientRequest.IngredientName))
+            {
+				return BadRequest("Ingredient name can not be empty");
+			}
+            else if (ingredientRequest.CategoryIds.Count() <= 0)
+            {
+				return BadRequest("Ingredient must belongs to at least 1 category");
+			}
+
+            await _ingredientService.AddIngredient(ingredientRequest);
+            return Ok("Ingredient added successfully.");
+        }
     }
 }
