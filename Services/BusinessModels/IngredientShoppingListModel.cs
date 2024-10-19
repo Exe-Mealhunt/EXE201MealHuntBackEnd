@@ -9,7 +9,7 @@ public partial class IngredientShoppingListModel
 
     public int? IngredientId { get; set; }
 
-    public int? ShoppingListId { get; set; }
+    public int? ShoppingListsId { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
