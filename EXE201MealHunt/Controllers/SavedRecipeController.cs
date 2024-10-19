@@ -49,6 +49,7 @@ namespace MealHunt_APIs.Controllers
                     Id = sr.Id,
                     RecipeId = sr.RecipeId,
                     RecipeName = sr.Recipe.Name,
+                    ImageUrl = sr.Recipe.ImageUrl,
                     UserId = sr.UserId,
                     CreatedAt = sr.CreatedAt,
                 });
