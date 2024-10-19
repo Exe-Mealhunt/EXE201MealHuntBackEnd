@@ -91,8 +91,8 @@ public partial class MealHuntContext : DbContext
                 .HasMaxLength(1)
                 .HasColumnName("content");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
                 .HasColumnName("created_at");
             entity.Property(e => e.PostId).HasColumnName("post_id");
             entity.Property(e => e.Rating).HasColumnName("rating");
@@ -116,7 +116,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("ingredients");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 //.IsRowVersion()
@@ -168,8 +168,8 @@ public partial class MealHuntContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
                 .HasColumnName("created_at");
             entity.Property(e => e.IngredientId).HasColumnName("ingredient_id");
             entity.Property(e => e.ShoppingListsId).HasColumnName("shoppingLists_id");
@@ -191,7 +191,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("occasions");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 //.IsRowVersion()
@@ -220,8 +220,8 @@ public partial class MealHuntContext : DbContext
                 .HasMaxLength(1)
                 .HasColumnName("content");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
                 .HasColumnName("created_at");
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.Status).HasColumnName("status");
@@ -242,7 +242,7 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("recipes");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.Content)
                 .HasMaxLength(255)
@@ -285,8 +285,8 @@ public partial class MealHuntContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
                 .HasColumnName("created_at");
             entity.Property(e => e.IngredientId).HasColumnName("ingredient_id");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
@@ -338,11 +338,11 @@ public partial class MealHuntContext : DbContext
             entity.ToTable("shoppingLists");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .IsRowVersion()
-                .IsConcurrencyToken()
+                //.IsRowVersion()
+                //.IsConcurrencyToken()
                 .HasColumnName("created_at");
             entity.Property(e => e.RecipeId).HasColumnName("recipe_id");
             entity.Property(e => e.Status).HasColumnName("status");
