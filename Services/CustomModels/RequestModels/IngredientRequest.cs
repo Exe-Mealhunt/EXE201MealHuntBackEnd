@@ -1,6 +1,7 @@
 ﻿using MealHunt_Services.BusinessModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -10,8 +11,10 @@ namespace MealHunt_Services.CustomModels.RequestModels
 {
 	public class IngredientRequest
 	{
-		public string? IngredientName { get; set; }
+		[Required]
+		public string IngredientName { get; set; }
 
-		public List<IngredientCategoryModel> IngredientCategories { get; set; } = new List<IngredientCategoryModel>();
+		[Required]
+		public List<int> CategoryIds { get; set; } = new();
 	}
 }

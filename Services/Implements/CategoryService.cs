@@ -36,5 +36,10 @@ namespace MealHunt_Services.Implements
                 throw;
             }
         }
+
+        public async Task<CategoryModel> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
