@@ -17,7 +17,7 @@ namespace MealHunt_APIs.Controllers
 			_logger = logger;
 		}
 
-		[HttpGet("/user/{id}")]
+		[HttpGet("by-user-id")]
 		public async Task<IActionResult> GetByUserId(int id) 
 		{
 			if (!ModelState.IsValid)
@@ -36,7 +36,7 @@ namespace MealHunt_APIs.Controllers
 			}
 		}
 
-		[HttpGet("/post/{id}")]
+		[HttpGet("by-post-id")]
 		public async Task<IActionResult> GetByPostId(int id)
 		{
 			if (!ModelState.IsValid)
@@ -55,7 +55,7 @@ namespace MealHunt_APIs.Controllers
 			}
 		}
 
-		[HttpGet("/reply/{id}")]
+		[HttpGet("replies-to")]
 		public async Task<IActionResult> GetByCommentId(int id)
 		{
 			if (!ModelState.IsValid)
@@ -118,8 +118,8 @@ namespace MealHunt_APIs.Controllers
 			}
 		}
 
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleComment(int id)
+		[HttpDelete]
+		public async Task<IActionResult> DeleteComment(int id)
 		{
 			if (!ModelState.IsValid)
 			{

@@ -10,9 +10,11 @@ namespace MealHunt_Repositories.Interfaces
     public interface IUserRepository
     {
         Task AddUser(User user);
-
+        
         Task<User?> FindUserById(int id);
 
         Task<User?> GetUserByEmail(string email);
+
+        Task DeleteUser(int id);    
     }
 }

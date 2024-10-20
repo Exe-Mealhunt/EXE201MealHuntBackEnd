@@ -36,7 +36,27 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<User?> FindUserById(int id)
+	public async Task DeleteUser(int id)
+	{
+		if (id <= 0)
+		{
+			throw new Exception("Id is invalid!");
+		}
+
+        try
+        {
+            var user = await _context.Users.FindAsync(id) ?? throw new Exception("User with this ID was not found.");
+
+			_context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+	}
+
+	public async Task<User?> FindUserById(int id)
     {
         if (id <= 0)
         {
