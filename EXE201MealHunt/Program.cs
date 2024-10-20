@@ -7,9 +7,16 @@ using MealHunt_Repositories.Interfaces;
 using MealHunt_Services.Implements;
 using MealHunt_Services.Interfaces;
 using MealHunt_Services.Mapper;
+using Net.payOS;
 using System.Reflection;
 
 var MyAllowSpecificOrigins = "myAllowSpecificOrigins";
+
+IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+PayOS payOS = new PayOS(configuration["Environment:PAYOS_CLIENT_ID"] ?? throw new Exception("Cannot find environment"),
+                    configuration["Environment:PAYOS_API_KEY"] ?? throw new Exception("Cannot find environment"),
+                    configuration["Environment:PAYOS_CHECKSUM_KEY"] ?? throw new Exception("Cannot find environment"));
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +32,9 @@ builder.Services.AddDbContext<MealHuntContext>();
 
 // Auto Mapper
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+
+// Add payOS
+builder.Services.AddSingleton(payOS);
 
 // Seed data
 builder.Services.AddTransient<Seed>();
