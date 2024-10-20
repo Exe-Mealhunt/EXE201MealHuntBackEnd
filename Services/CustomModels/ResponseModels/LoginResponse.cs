@@ -8,6 +8,7 @@ namespace MealHunt_Services.CustomModels.ResponseModels
 {
     public class LoginResponse
     {
+        public int Id { get; set; }
         public string? FullName { get; set; }
 
         public string? Email { get; set; }

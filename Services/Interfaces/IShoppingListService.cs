@@ -1,6 +1,5 @@
 ﻿using MealHunt_Repositories.Entities;
 using MealHunt_Services.BusinessModels;
-using MealHunt_Services.CustomModels.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MealHunt_Services.Interfaces
 {
-    public interface IIngredientService
+    public interface IShoppingListService
     {
-        Task<List<IngredientModel>> GetIngredientsAsync(string searchValue);
-        Task<IngredientRequest> AddIngredient(IngredientRequest ingredient);
+        Task<ShoppingListModel> AddShoppingList(ShoppingListModel shoppingListModel);
+        Task<List<ShoppingListModel>> GetShoppingLists(int userId);
     }
 }

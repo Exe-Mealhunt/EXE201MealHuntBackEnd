@@ -96,6 +96,20 @@ namespace MealHunt_Repositories.Implements
             return recipeIngredients;
         }
 
+        public async Task<Recipe> AddRecipe(Recipe recipe)
+        {
+            try
+            {
+                await _context.Recipes.AddAsync(recipe);
+                await _context.SaveChangesAsync();
+                return recipe;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         private bool CheckRecipeHasIngredients(string[] ingredientsName, Recipe recipe)
         {
             for(int i = 0; i < ingredientsName.Length; i++)

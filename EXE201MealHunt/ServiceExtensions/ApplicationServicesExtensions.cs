@@ -33,6 +33,11 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOccasionRepository, OccasionRepository>();
+            services.AddScoped<ISavedRecipeRepository, SavedRecipeRepository>();
+            services.AddScoped<IRecipeIngredientRepository, RecipeIngredientRepository>();
+            services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
+            services.AddScoped<IIngredientCategoryRepository, IngredientCategoryRepository>();
+            services.AddScoped<IIngredientShoppingListRepository, IngredientShoppingListRepository>();
 
             return services;
         }
@@ -46,6 +51,11 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOccasionService, OccasionService>();
+            services.AddScoped<ISavedRecipeService, SavedRecipeService>();
+            services.AddScoped<IRecipeIngredientService, RecipeIngredientService>();
+            services.AddScoped<IShoppingListService, ShoppingListService>();
+            services.AddScoped<IIngredientCategoryService, IngredientCategoryService>();
+            services.AddScoped<IIngredientShoppingListService, IngredientShoppingListService>();
 
             return services;
         }
