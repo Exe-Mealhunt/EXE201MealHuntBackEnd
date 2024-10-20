@@ -96,7 +96,7 @@ namespace MealHunt_APIs.Controllers
 			}
 
 			await _recipeService.AddRecipe(recipeRequest);
-			return Ok("Recipe added successfully.");
+			return Ok(recipeRequest);
 		}
     }
 }

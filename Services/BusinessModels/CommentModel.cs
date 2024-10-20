@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace MealHunt_Services.BusinessModels;
 
@@ -20,8 +21,6 @@ public partial class CommentModel
     public DateTime CreatedAt { get; set; }
 
     public int? Status { get; set; }
-
-    public virtual PostModel? Post { get; set; }
 
     public virtual UserModel? User { get; set; }
 }

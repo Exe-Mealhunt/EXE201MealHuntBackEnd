@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace MealHunt_Repositories.Entities;
 
@@ -21,6 +22,7 @@ public partial class Comment
 
     public int? Status { get; set; }
 
+    [JsonIgnore]
     public virtual Post? Post { get; set; }
 
     public virtual User? User { get; set; }

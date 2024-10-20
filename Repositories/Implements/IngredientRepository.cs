@@ -42,8 +42,7 @@ namespace MealHunt_Repositories.Implements
             try
             {
                 ingredients = await _context.Ingredients.Include(i => i.RecipeIngredients)
-                    .Where(i => i.RecipeIngredients
-                        .Any(ri => ri.RecipeId == recipeId))
+                    .Where(i => i.RecipeIngredients.Any(ri => ri.RecipeId == recipeId))
                     .ToListAsync();
             }
             catch (Exception ex)

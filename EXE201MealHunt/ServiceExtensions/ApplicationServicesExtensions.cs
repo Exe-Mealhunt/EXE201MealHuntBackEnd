@@ -5,6 +5,7 @@ using MealHunt_Services.Implements;
 using MealHunt_Services.Interfaces;
 using MealHunt_Services.Mapper;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace MealHunt_APIs.ServiceExtensions
 {
@@ -19,10 +20,10 @@ namespace MealHunt_APIs.ServiceExtensions
                 .AddRepositories()
                 .AddServices()
                 .AddCorsConfiguration()
+                .AddSerControllers()
                 ;
-            ;
 
-            return services;
+			return services;
         }
 
         private static IServiceCollection AddRepositories(this IServiceCollection services)
@@ -37,6 +38,8 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IRecipeIngredientRepository, RecipeIngredientRepository>();
             services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
             services.AddScoped<IIngredientCategoryRepository, IngredientCategoryRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
             return services;
         }
@@ -54,8 +57,10 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IRecipeIngredientService, RecipeIngredientService>();
             services.AddScoped<IShoppingListService, ShoppingListService>();
             services.AddScoped<IIngredientCategoryService, IngredientCategoryService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ICommentService, CommentService>();
 
-            return services;
+			return services;
         }
 
         private static IServiceCollection AddCorsConfiguration(this IServiceCollection services)
@@ -75,5 +80,18 @@ namespace MealHunt_APIs.ServiceExtensions
 
             return services;
         }
-    }
+
+        private static IServiceCollection AddSerControllers(this IServiceCollection services)
+        {
+			services.AddControllers()
+				.AddNewtonsoftJson(options =>
+				{
+					// Configure JSON options to handle circular references
+					options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Error;
+				});
+
+
+			return services;
+		}
+	}
 }

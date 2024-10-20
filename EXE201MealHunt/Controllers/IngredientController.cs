@@ -25,6 +25,7 @@ namespace MealHunt_APIs.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 var ingredientModels = await _ingredientService.GetIngredientsAsync(value);
@@ -59,7 +60,7 @@ namespace MealHunt_APIs.Controllers
 			}
 
             await _ingredientService.AddIngredient(ingredientRequest);
-            return Ok("Ingredient added successfully.");
+            return Ok(ingredientRequest);
         }
     }
 }

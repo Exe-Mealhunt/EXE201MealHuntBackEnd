@@ -17,7 +17,6 @@ namespace MealHunt_APIs.Controllers
             _savedRecipeService = savedRecipeService;
         }
 
-
         [HttpPost("add-saved-recipe")]
         public async Task<IActionResult> AddSavedRecipe([Required] int recipeId, [Required] int userId)
         {
