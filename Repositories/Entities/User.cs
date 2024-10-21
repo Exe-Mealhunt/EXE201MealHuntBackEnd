@@ -26,4 +26,8 @@ public partial class User
     public virtual ICollection<SavedRecipe> SavedRecipes { get; set; } = new List<SavedRecipe>();
 
     public virtual ICollection<ShoppingList> ShoppingLists { get; set; } = new List<ShoppingList>();
+
+    public virtual ICollection<UserSubscription>? UserSubscriptions { get; set; } = new List<UserSubscription>();
+
+    public virtual ICollection<Payment>? Payments { get; set; } = new List<Payment>();  
 }

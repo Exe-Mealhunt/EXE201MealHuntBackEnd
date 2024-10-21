@@ -41,6 +41,12 @@ public partial class MealHuntContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
+
+    public virtual DbSet<UserSubscription> UserSubscriptions { get; set; }
+
+    public virtual DbSet<Payment> Payments { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("Host=ep-winter-forest-a1s38rnz-pooler.ap-southeast-1.aws.neon.tech;Port=5432;Username=default;Password=4xi9lNBgLVTs;Database=verceldb;");
@@ -385,6 +391,123 @@ public partial class MealHuntContext : DbContext
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
                 .HasColumnName("full_name");
+
+            entity.HasMany(d => d.UserSubscriptions)
+                .WithOne(p => p.User)  // Assuming UserSubscription has a User navigation property
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__user_subscriptions__user_id__B145AAB4");
+
+            entity.HasMany(d => d.Payments)
+                .WithOne(p => p.User)  // Assuming Payment has a User navigation property
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__payments__user_id__D4A041FD");
+        });
+
+        // Subscription and Payment
+        modelBuilder.Entity<SubscriptionPlan>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__SubscriptionPlan__3213E83FFEEA542A");
+
+            entity.ToTable("subscription_plans");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+
+            entity.Property(e => e.Price)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("price");
+
+            entity.Property(e => e.Currency)
+                .HasMaxLength(10)
+                .HasColumnName("currency");
+
+            entity.Property(e => e.DurationInDays)
+                .HasColumnName("duration_in_days");
+
+            entity.Property(e => e.Description)
+                .HasMaxLength(500)
+                .HasColumnName("description");
+
+            entity.HasMany(d => d.UserSubscriptions) // Assuming the collection is correctly defined in SubscriptionPlan
+                .WithOne(p => p.SubscriptionPlan) // Assuming UserSubscription has a SubscriptionPlan navigation property
+                .HasForeignKey(d => d.SubscriptionPlanId) // Foreign key in UserSubscription
+                .HasConstraintName("FK__user_subscriptions__subscription_plan_id__B2566202");
+
+        });
+
+        modelBuilder.Entity<UserSubscription>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__UserSubscription__3213E83FADFC563A");
+
+            entity.ToTable("user_subscriptions");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
+
+            entity.Property(e => e.StartDate)
+                //.HasColumnType("datetime")
+                .HasColumnName("start_date");
+
+            entity.Property(e => e.EndDate)
+                //.HasColumnType("datetime")
+                .HasColumnName("end_date");
+
+            entity.Property(e => e.IsCurrent)
+                .HasColumnName("is_current");
+
+            entity.Property(e => e.UserId)
+                .HasColumnName("user_id");
+
+            entity.Property(e => e.SubscriptionPlanId)
+                .HasColumnName("subscription_plan_id");
+
+            entity.HasOne(d => d.User)
+                .WithMany(p => p.UserSubscriptions)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__user_subscriptions__user_id__B145AAB4");
+
+            entity.HasOne(d => d.SubscriptionPlan)
+                .WithMany()
+                .HasForeignKey(d => d.SubscriptionPlanId)
+                .HasConstraintName("FK__user_subscriptions__subscription_plan_id__B2566202");
+
+        });
+
+        modelBuilder.Entity<Payment>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Payment__3213E83F1AE63DDC");
+
+            entity.ToTable("payments");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(100)
+                .HasColumnName("id");
+
+            entity.Property(e => e.Amount)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("amount");
+
+            entity.Property(e => e.PayDate)
+                //.HasColumnType("datetime")
+                .HasColumnName("pay_date");
+
+            entity.Property(e => e.TransactionId)
+                .HasMaxLength(255)
+                .HasColumnName("transaction_id");
+
+            entity.Property(e => e.UserId)
+                .HasColumnName("user_id");
+
+            entity.HasOne(d => d.User)
+                .WithMany(p => p.Payments)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__payments__user_id__D4A041FD");
         });
 
         OnModelCreatingPartial(modelBuilder);
