@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using MealHunt_Repositories.Entities;
 using MealHunt_Repositories.Interfaces;
+using MealHunt_Repositories.Pagination;
+using MealHunt_Repositories.Parameters;
 using MealHunt_Services.BusinessModels;
 using MealHunt_Services.CustomModels.RequestModels;
+using MealHunt_Services.CustomModels.ResponseModels;
 using MealHunt_Services.Interfaces;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -74,13 +77,18 @@ namespace MealHunt_Services.Implements
 			}
 		}
 
-		public async Task<List<PostModel>> GetAllAsync()
+		public async Task<PagedList<PostListResponse>> GetAllAsync(PostParameters queryStringParameters)
 		{
 			try
 			{
-				var posts = await _postRepository.GetAllAsync();
-				var mappedPosts = _mapper.Map<List<PostModel>>(posts);
-				return mappedPosts;
+				var posts = await _postRepository.GetAllAsync(queryStringParameters);
+				var pagedPosts = _mapper.Map<PagedList<PostListResponse>>(posts);
+				return new PagedList<PostListResponse>(
+					pagedPosts,
+					posts.TotalCount,
+					posts.CurrentPage,
+					posts.PageSize
+				);
 			}
 			catch
 			{

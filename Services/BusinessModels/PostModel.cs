@@ -21,5 +21,5 @@ public partial class PostModel
 
     public virtual List<CommentModel> Comments { get; set; } = new List<CommentModel>();
 
-    public virtual UserModel? User { get; set; }
+    // public virtual UserModel? User { get; set; }
 }

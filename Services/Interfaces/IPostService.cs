@@ -1,6 +1,9 @@
 ﻿using MealHunt_Repositories.Entities;
+using MealHunt_Repositories.Pagination;
+using MealHunt_Repositories.Parameters;
 using MealHunt_Services.BusinessModels;
 using MealHunt_Services.CustomModels.RequestModels;
+using MealHunt_Services.CustomModels.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,6 @@ namespace MealHunt_Services.Interfaces
 		Task<PostModel> UpdateAsync(PostModel post);
 		Task DeleteAsync(int id);
 		Task<PostModel> GetByIdAsync(int id);
-		Task<List<PostModel>> GetAllAsync();
+		Task<PagedList<PostListResponse>> GetAllAsync(PostParameters pagingProperties);
 	}
 }

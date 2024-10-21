@@ -22,5 +22,5 @@ public partial class CommentModel
 
     public int? Status { get; set; }
 
-    public virtual UserModel? User { get; set; }
+    // public virtual UserModel? User { get; set; }
 }
