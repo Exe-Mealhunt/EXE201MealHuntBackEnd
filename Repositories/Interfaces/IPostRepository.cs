@@ -1,4 +1,6 @@
 ﻿using MealHunt_Repositories.Entities;
+using MealHunt_Repositories.Pagination;
+using MealHunt_Repositories.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace MealHunt_Repositories.Interfaces
 		Task<Post> AddAsync(Post post);
 		Task<Post> UpdateAsync(Post post);
 		Task<Post> DeleteAsync(int id);
-		Task<List<Post>> GetAllAsync();
+		Task<PagedList<Post>> GetAllAsync(PostParameters queryStringParameters);
 		Task<Post> FindByIdAsync(int id);
 	}
 }

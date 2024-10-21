@@ -1,4 +1,7 @@
-﻿using MealHunt_Services.BusinessModels;
+﻿using MealHunt_APIs.ViewModels.ResponseModel;
+using MealHunt_Repositories.Entities;
+using MealHunt_Repositories.Parameters;
+using MealHunt_Services.BusinessModels;
 using MealHunt_Services.CustomModels.RequestModels;
 using MealHunt_Services.Implements;
 using MealHunt_Services.Interfaces;
@@ -20,7 +23,7 @@ namespace MealHunt_APIs.Controllers
 		}
 
 		[HttpGet("all")]
-		public async Task<IActionResult> GetAll()
+		public async Task<IActionResult> GetAll([FromQuery] PostParameters parameters)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -29,7 +32,19 @@ namespace MealHunt_APIs.Controllers
 
 			try
 			{
-				var response = await _postService.GetAllAsync();
+				var posts = await _postService.GetAllAsync(parameters);
+
+				var response = new PostPagingResponse
+				{
+					Posts = posts,
+					TotalPages = posts.TotalPages,
+					CurrentPage = posts.CurrentPage,
+					PageSize = posts.PageSize,
+					TotalCount = posts.TotalCount,
+					HasPrevious = posts.HasPrevious,
+					HasNext = posts.HasNext
+				};
+
 				return Ok(response);
 			}
 			catch (Exception ex)

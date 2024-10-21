@@ -1,6 +1,8 @@
 ﻿using MealHunt_Repositories.Data;
 using MealHunt_Repositories.Entities;
 using MealHunt_Repositories.Interfaces;
+using MealHunt_Repositories.Pagination;
+using MealHunt_Repositories.Parameters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -55,8 +57,12 @@ namespace MealHunt_Repositories.Implements
 		{
 			try
 			{
-				var posts = await _context.Posts.Include(p => p.Comments).ToListAsync();
-				return posts.FirstOrDefault(p => p.Id == id);
+				var post = await _context.Posts
+								.Include(p => p.User)
+								.Include(p => p.Comments)
+								.FirstOrDefaultAsync(p => p.Id == id);
+
+				return post;
 			}
 			catch
 			{
@@ -64,12 +70,17 @@ namespace MealHunt_Repositories.Implements
 			}
 		}
 
-		public async Task<List<Post>> GetAllAsync()
+		public async Task<PagedList<Post>> GetAllAsync(PostParameters queryStringParameters)
 		{
 			try
 			{
-				var posts = await _context.Posts.Include(p => p.Comments).ToListAsync();
-				return posts;
+				var posts = _context.Posts
+							.Include(p => p.Comments)
+							.Include(p => p.User)
+							.AsQueryable();
+
+				return await PagedList<Post>
+							.ToPagedList(posts, queryStringParameters.PageNumber, queryStringParameters.PageSize);
 			}
 			catch
 			{
