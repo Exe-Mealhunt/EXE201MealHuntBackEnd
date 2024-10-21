@@ -10,6 +10,6 @@ namespace MealHunt_Services.Interfaces
 {
     public interface IIngredientShoppingListService
     {
-        Task<IngredientShoppingListModel> AddIngredientShoppingList(IngredientShoppingListModel ingredientShoppingListModel);
+        Task<IngredientShoppingListModel> AddIngredientShoppingList(int ingredientId, int recipeId, int userId);
     }
 }

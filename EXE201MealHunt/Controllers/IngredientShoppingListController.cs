@@ -13,31 +13,22 @@ namespace MealHunt_APIs.Controllers
     public class IngredientShoppingListController : ControllerBase
     {
         private readonly IIngredientShoppingListService _ingredientShoppingListService;
+        private readonly IShoppingListService _shoppingListService;
 
-        public IngredientShoppingListController(IIngredientShoppingListService ingredientShoppingListService)
+        public IngredientShoppingListController(IIngredientShoppingListService ingredientShoppingListService, IShoppingListService shoppingListService)
         {
             _ingredientShoppingListService = ingredientShoppingListService;
+            _shoppingListService = shoppingListService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddIngredientShoppingList(int ingredientId, int shoppingListId)
+        public async Task<IActionResult> AddIngredientShoppingList(int ingredientId, int recipeId, int userId)
         {
-            if (ingredientId == null || shoppingListId == null) return BadRequest("Enter userId please");
+            if (ingredientId == null || recipeId == null || userId == null) return BadRequest("Enter userId please");
             try
             {
 
-                var ingredientShoppingListModel = _ingredientShoppingListService.AddIngredientShoppingList(new IngredientShoppingListModel
-                {
-                    IngredientId = ingredientId,
-                    ShoppingListsId = shoppingListId,
-                    CreatedAt = DateTime.UtcNow
-                });
-                var response = new IngredientShoppingListResponse
-                {
-                    IngredientId = ingredientShoppingListModel.Result.IngredientId,
-                    ShoppingListsId = ingredientShoppingListModel.Result.ShoppingListsId,
-                    CreatedAt = ingredientShoppingListModel.Result.CreatedAt
-                };
+                var response = await _ingredientShoppingListService.AddIngredientShoppingList(ingredientId, recipeId, userId);
                 return Ok(response);
 
             }
