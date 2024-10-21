@@ -1,9 +1,9 @@
 ﻿using MealHunt_Repositories.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MealHunt_Services.BusinessModels

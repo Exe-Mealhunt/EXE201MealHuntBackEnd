@@ -41,7 +41,8 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IIngredientShoppingListRepository, IngredientShoppingListRepository>();
-
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IUserSubscriptionRepository, UserSubscriptionRepository>();
 
             return services;
         }
@@ -62,8 +63,9 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IIngredientShoppingListService, IngredientShoppingListService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
-			return services;
+            return services;
         }
 
         private static IServiceCollection AddCorsConfiguration(this IServiceCollection services)

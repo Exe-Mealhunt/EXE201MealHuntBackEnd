@@ -473,7 +473,7 @@ public partial class MealHuntContext : DbContext
                 .HasConstraintName("FK__user_subscriptions__user_id__B145AAB4");
 
             entity.HasOne(d => d.SubscriptionPlan)
-                .WithMany()
+                .WithMany(p => p.UserSubscriptions)
                 .HasForeignKey(d => d.SubscriptionPlanId)
                 .HasConstraintName("FK__user_subscriptions__subscription_plan_id__B2566202");
 

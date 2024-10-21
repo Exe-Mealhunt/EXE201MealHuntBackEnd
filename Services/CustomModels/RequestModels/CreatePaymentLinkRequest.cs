@@ -17,5 +17,9 @@ namespace MealHunt_Services.CustomModels.RequestModels
         public string ReturnUrl { get; set; }
 
         public string CancelUrl { get; set; }
+
+        public int? UserId { get; set; }
+
+        public int? SubscriptionPlanId { get; set; }
     }
 }

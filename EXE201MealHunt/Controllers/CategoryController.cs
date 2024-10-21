@@ -23,7 +23,7 @@ namespace MealHunt_APIs.Controllers
             try
             {
                 var response = await _categoryService.GetAllCategories();
-                return Ok(response);
+                return Ok(response); 
             }
             catch (Exception ex)
             {

@@ -64,6 +64,22 @@ namespace MealHunt_APIs
                 _context.Categories.AddRange(categories);
             }
 
+            if (!_context.SubscriptionPlans.Any())
+            {
+                var subscriptionPlans = new List<SubscriptionPlan>
+                {
+                    new SubscriptionPlan
+                    {
+                        Name = "Bronze Member",
+                        Currency = "VND",
+                        Price = 10000,
+                        Description = "Membership...",
+                        DurationInDays = 30
+                    }
+                };
+                _context.SubscriptionPlans.AddRange(subscriptionPlans);
+            }
+
             if (!_context.Ingredients.Any())
             {
 
