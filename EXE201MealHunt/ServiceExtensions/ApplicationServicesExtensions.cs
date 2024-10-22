@@ -98,5 +98,5 @@ namespace MealHunt_APIs.ServiceExtensions
 
 			return services;
 		}
-	}
+    }
 }

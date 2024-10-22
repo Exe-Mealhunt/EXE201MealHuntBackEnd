@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace MealHunt_Repositories.Entities;
 
-public partial class User
+public partial class User : IdentityUser<int>
 {
-    public int Id { get; set; }
+    //public int Id { get; set; }
 
     public string? FullName { get; set; }
 

@@ -40,7 +40,7 @@ namespace MealHunt_Services.Mapper
             CreateMap<RegisterRequest, UserModel>()
                 .ConstructUsing(src => new UserModel());
             CreateMap<User, RegisterResponse>();
-            CreateMap<UserModel, LoginResponse>();
+            CreateMap<User, LoginResponse>();
 
             // Recipes
             CreateMap<Recipe, RecipeModel>().ReverseMap();

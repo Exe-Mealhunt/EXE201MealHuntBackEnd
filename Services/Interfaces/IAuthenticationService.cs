@@ -10,7 +10,7 @@ namespace MealHunt_Services.Interfaces
 {
     public interface IAuthenticationService
     {
-        Task<RegisterResponse> Register(RegisterRequest request);
+        Task<dynamic> Register(RegisterRequest request);
 
         Task<LoginResponse> Login(LoginRequest request);
     }

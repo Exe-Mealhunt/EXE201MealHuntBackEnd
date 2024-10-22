@@ -1,5 +1,6 @@
 ﻿using MealHunt_Services.BusinessModels;
 using MealHunt_Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MealHunt_APIs.Controllers

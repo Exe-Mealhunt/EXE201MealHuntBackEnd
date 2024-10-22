@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using MealHunt_Repositories.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MealHunt_Repositories.Data;
 
-public partial class MealHuntContext : DbContext
+public partial class MealHuntContext : IdentityDbContext<User, Role, int>
 {
     public MealHuntContext()
     {
@@ -47,6 +49,7 @@ public partial class MealHuntContext : DbContext
 
     public virtual DbSet<Payment> Payments { get; set; }
 
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("Host=ep-winter-forest-a1s38rnz-pooler.ap-southeast-1.aws.neon.tech;Port=5432;Username=default;Password=4xi9lNBgLVTs;Database=verceldb;");
@@ -60,6 +63,33 @@ public partial class MealHuntContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Identity role
+        base.OnModelCreating(modelBuilder);
+
+        List<Role> roles = new List<Role>
+            {
+                new Role
+                {
+                    Id = 1,
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new Role
+                {
+                    Id = 2,
+                    Name = "Guest",
+                    NormalizedName = "GUEST"
+                },
+                new Role
+                {
+                    Id = 3,
+                    Name = "Member",
+                    NormalizedName = "MEMBER"
+                }
+            };
+
+        modelBuilder.Entity<Role>().HasData(roles);
+
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__categori__3213E83FD239E576");
