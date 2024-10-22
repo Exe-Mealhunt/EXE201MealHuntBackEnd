@@ -1,11 +1,6 @@
 ﻿using MealHunt_Repositories.Entities;
 using MealHunt_Repositories.Pagination;
 using MealHunt_Repositories.Parameters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MealHunt_Repositories.Interfaces
 {
@@ -18,5 +13,9 @@ namespace MealHunt_Repositories.Interfaces
         Task<List<RecipeIngredient>> GetRecipeIngredientsOfRecipe(int id);
 
         Task<Recipe> AddRecipe(Recipe recipe); 
+
+        Task<Recipe> DeleteRecipe(int id);
+
+        Task<Recipe> UpdateRecipe(Recipe recipe);
     }
 }

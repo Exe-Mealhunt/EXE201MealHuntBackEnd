@@ -12,11 +12,9 @@ namespace MealHunt_Services.CustomModels.ResponseModels
 	{
 		public int Id { get; set; }
 
-		// public int? UserId { get; set; }
+		public string? CreatedBy { get; set; }
 
 		public string? Title { get; set; }
-
-		public string? Content { get; set; }
 
 		public double? Rating { get; set; }
 

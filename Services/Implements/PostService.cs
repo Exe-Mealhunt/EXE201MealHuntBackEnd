@@ -20,13 +20,13 @@ namespace MealHunt_Services.Implements
 	{
 		private readonly IPostRepository _postRepository;
 		private readonly IMapper _mapper;
-		private readonly ICommentService _commentService;
+		private readonly IUserService _userService;
 
-		public PostService(IPostRepository postRepository, IMapper mapper, ICommentService commentService)
+		public PostService(IPostRepository postRepository, IMapper mapper, IUserService userService)
 		{
 			_postRepository = postRepository;
-			_mapper = mapper;	
-			_commentService = commentService;
+			_mapper = mapper;
+			_userService = userService;
 		}
 
 		public async Task<PostModel> AddAsync(PostModel post)
@@ -83,6 +83,13 @@ namespace MealHunt_Services.Implements
 			{
 				var posts = await _postRepository.GetAllAsync(queryStringParameters);
 				var pagedPosts = _mapper.Map<PagedList<PostListResponse>>(posts);
+
+				for (int i = 0; i < posts.Count; ++i)
+				{
+					var user = await _userService.GetById((int)posts[i].UserId);
+					pagedPosts[i].CreatedBy = user.FullName;
+				}
+
 				return new PagedList<PostListResponse>(
 					pagedPosts,
 					posts.TotalCount,
@@ -101,8 +108,19 @@ namespace MealHunt_Services.Implements
 			try
 			{
 				var post = await _postRepository.FindByIdAsync(id);
-				
-				return _mapper.Map<PostModel>(post);
+				var author = await _userService.GetById((int) post.UserId);
+
+				var mappedPost = _mapper.Map<PostModel>(post);
+
+				mappedPost.Author = new()
+				{
+					Id = author.Id,
+					UserEmail = author.Email,
+					UserName = author.FullName,
+					Role = author.Role,
+				};
+
+				return mappedPost;
 			}
 			catch
 			{

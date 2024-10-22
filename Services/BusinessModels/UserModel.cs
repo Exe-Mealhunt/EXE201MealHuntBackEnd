@@ -19,9 +19,9 @@ public partial class UserModel
 
     public int? Status { get; set; }
 
-    public virtual List<CommentModel> Comments { get; set; } = new List<CommentModel>();
+    // public virtual List<CommentModel> Comments { get; set; } = new List<CommentModel>();
 
-    public virtual List<PostModel> Posts { get; set; } = new List<PostModel>();
+    // public virtual List<PostModel> Posts { get; set; } = new List<PostModel>();
 
     public virtual List<SavedRecipeModel> SavedRecipes { get; set; } = new List<SavedRecipeModel>();
 

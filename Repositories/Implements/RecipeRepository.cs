@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MealHunt_Repositories.Implements
 {
-    public class RecipeRepository : IRecipeRepository
+	public class RecipeRepository : IRecipeRepository
     {
         private readonly MealHuntContext _context;
 
@@ -130,5 +130,39 @@ namespace MealHunt_Repositories.Implements
                 return;
             recipes = recipes.Where(r => r.Name.ToLower().Trim().Contains(searchValue.Trim().ToLower()));
         }
-    }
+
+		public async Task<Recipe> DeleteRecipe(int id)
+		{
+			try
+            {
+                var recipe = await _context.Recipes.FindAsync(id) ?? throw new Exception("Recipe with this ID was not found.");
+
+				_context.Recipes.Remove(recipe);
+                await _context.SaveChangesAsync();
+
+                return recipe;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+		}
+
+		public async Task<Recipe> UpdateRecipe(Recipe updatedRecipe)
+		{
+			try
+			{
+				if (await _context.Recipes.FindAsync(updatedRecipe) == null) throw new Exception("Recipe does not exist.");
+
+				_context.Recipes.Update(updatedRecipe);
+				await _context.SaveChangesAsync();
+
+				return updatedRecipe;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
+		}
+	}
 }
