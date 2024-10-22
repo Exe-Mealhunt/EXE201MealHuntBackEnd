@@ -225,6 +225,9 @@ public partial class MealHuntContext : DbContext
             entity.Property(e => e.Content)
                 .HasMaxLength(1)
                 .HasColumnName("content");
+            entity.Property(e => e.ImgUrl)
+                .HasMaxLength(5000)
+                .HasColumnName("img_url");
             entity.Property(e => e.CreatedAt)
                 //.IsRowVersion()
                 //.IsConcurrencyToken()

@@ -13,6 +13,8 @@ public partial class Post
 
     public string? Content { get; set; }
 
+    public string? ImgUrl { get; set; }
+
     public double? Rating { get; set; }
 
     public DateTime CreatedAt { get; set; }
