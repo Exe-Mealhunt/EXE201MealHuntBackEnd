@@ -12,10 +12,10 @@ namespace MealHunt_Services.CustomModels.RequestModels
 		[Required]
 		public int IngredientId { get; set; }
 
-		[Required]
-		public string Unit { get; set; }
+		
+		public string? Unit { get; set; }
 
-		[Required]
-		public double Quantity { get; set; }
+		
+		public double? Quantity { get; set; }
 	}
 }
