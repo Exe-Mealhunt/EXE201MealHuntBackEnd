@@ -5,6 +5,7 @@ using MealHunt_Repositories.Data;
 using MealHunt_Repositories.Entities;
 using MealHunt_Repositories.Implements;
 using MealHunt_Repositories.Interfaces;
+using MealHunt_Services.BusinessModels;
 using MealHunt_Services.Implements;
 using MealHunt_Services.Interfaces;
 using MealHunt_Services.Mapper;
@@ -114,6 +115,9 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+// Add Cloudinary
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<CloudinaryService>();
 
 // Service Extensions
 builder.Services.AddApplicationServices();
