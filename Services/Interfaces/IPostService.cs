@@ -19,6 +19,6 @@ namespace MealHunt_Services.Interfaces
 		Task<PostModel> UpdateAsync(PostModel post);
 		Task DeleteAsync(int id);
 		Task<PostModel> GetByIdAsync(int id);
-		Task<PagedList<PostListResponse>> GetAllAsync(PostParameters pagingProperties);
+		Task<PagedList<PostModel>> GetAllAsync(PostParameters pagingProperties);
 	}
 }

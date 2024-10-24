@@ -1,4 +1,5 @@
 ﻿using MealHunt_Repositories.Pagination;
+using MealHunt_Services.BusinessModels;
 using MealHunt_Services.CustomModels.ResponseModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ namespace MealHunt_APIs.ViewModels.ResponseModel
 {
 	public class PostPagingResponse
 	{
-		public PagedList<PostListResponse> Posts { get; set; }
+		public PagedList<PostModel> Posts { get; set; }
 
 		public int CurrentPage { get; set; }
 

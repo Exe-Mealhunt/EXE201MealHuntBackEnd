@@ -77,20 +77,26 @@ namespace MealHunt_Services.Implements
 			}
 		}
 
-		public async Task<PagedList<PostListResponse>> GetAllAsync(PostParameters queryStringParameters)
+		public async Task<PagedList<PostModel>> GetAllAsync(PostParameters queryStringParameters)
 		{
 			try
 			{
 				var posts = await _postRepository.GetAllAsync(queryStringParameters);
-				var pagedPosts = _mapper.Map<PagedList<PostListResponse>>(posts);
+				var pagedPosts = _mapper.Map<PagedList<PostModel>>(posts);
 
 				for (int i = 0; i < posts.Count; ++i)
 				{
 					var user = await _userService.GetById((int)posts[i].UserId);
-					pagedPosts[i].CreatedBy = user.FullName;
+					pagedPosts[i].Author = new()
+                    {
+                        Id = user.Id,
+                        UserEmail = user.Email,
+                        UserName = user.FullName,
+                        Role = user.Role,
+                    }; ;
 				}
 
-				return new PagedList<PostListResponse>(
+				return new PagedList<PostModel>(
 					pagedPosts,
 					posts.TotalCount,
 					posts.CurrentPage,
