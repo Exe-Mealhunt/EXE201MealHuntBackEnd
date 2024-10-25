@@ -56,7 +56,7 @@ public class UserRepository : IUserRepository
         }
 	}
 
-	public async Task<User?> FindUserById(int id)
+    public async Task<User?> FindUserById(int id)
     {
         if (id <= 0)
         {
@@ -85,6 +85,22 @@ public class UserRepository : IUserRepository
         catch (Exception ex)
         {
             throw new Exception(ex.Message);
+        }
+    }
+    
+    public async Task<bool> IsInOtherPlans(int userId)
+    {
+        try
+        {
+            if (!await _context.UserSubscriptions.AnyAsync())
+                return false;
+            return await _context.UserSubscriptions
+                .Where(us => us.UserId == userId)
+                .AnyAsync(us => us.IsCurrent == true);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);    
         }
     }
 }

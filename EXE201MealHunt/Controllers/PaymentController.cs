@@ -28,16 +28,6 @@ namespace MealHunt_APIs.Controllers
         {
             try
             {
-                //int orderCode = int.Parse(DateTimeOffset.Now.ToString("ffffff"));
-                //ItemData item = new ItemData(request.ProductName, 1, request.Price);
-                //List<ItemData> items = new List<ItemData>();
-                //items.Add(item);
-                //PaymentData paymentData = new PaymentData(orderCode, request.Price, request.Description, items, request.CancelUrl, request.ReturnUrl);
-
-                //CreatePaymentResult createPayment = await _payOS.createPaymentLink(paymentData);
-
-                //return Ok(createPayment);
-
                 var response = await _paymentService.CreatePaymentUrl(request);
                 return Ok(response);
             }
@@ -63,22 +53,6 @@ namespace MealHunt_APIs.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Test()
-        {
-
-            try
-            {
-                return Ok(new PayOSWebhookResponse
-                {
-                    Success = true,
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+        
     }
 }

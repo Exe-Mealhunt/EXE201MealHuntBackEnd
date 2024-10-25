@@ -24,13 +24,21 @@ namespace MealHunt_Services.Implements
         private string prefix = "User";
         private string subscriptionPrefix = "Plan";
         private readonly IUserSubscriptionRepository _userSubscriptionRepository;
+        private readonly ISubscriptionPlanRepository _subscriptionPlanRepository;
 
-        public PaymentService(PayOS payOS, IPaymentRepository paymentRepository, IUserRepository userRepository, IUserSubscriptionRepository userSubscriptionRepository)
+        public PaymentService(
+            PayOS payOS, 
+            IPaymentRepository paymentRepository, 
+            IUserRepository userRepository, 
+            IUserSubscriptionRepository userSubscriptionRepository, 
+            ISubscriptionPlanRepository subscriptionPlanRepository
+            )
         {
             _payOS = payOS;
             _paymentRepository = paymentRepository;
             _userRepository = userRepository;
             _userSubscriptionRepository = userSubscriptionRepository;
+            _subscriptionPlanRepository = subscriptionPlanRepository;
         }
 
         public async Task<string> CreatePaymentUrl(CreatePaymentLinkRequest request)
@@ -98,7 +106,16 @@ namespace MealHunt_Services.Implements
                 var descriptionParts = description.Split(' ');
                 var userId = int.Parse(descriptionParts[0].Substring(prefix.Length));
                 var planId = int.Parse(descriptionParts[1].Substring(subscriptionPrefix.Length));
-
+                
+                // Get subscription plan by id
+                var plan = await _subscriptionPlanRepository.GetSubscriptionPlanByIdAsync(planId);
+                if(plan == null)
+                    return new PayOSWebhookResponse
+                    {
+                        Success = false
+                    };
+                double durationInDays = (double)plan.DurationInDays;
+                
                 // Check if user is existed
                 var user = await _userRepository.FindUserById(userId);
                 if(user == null)
@@ -123,8 +140,8 @@ namespace MealHunt_Services.Implements
                 var userSubscription = new UserSubscription
                 {
                     StartDate = utcDateTime,
-                    EndDate = utcDateTime.AddDays(30),
-                    IsCurrent = true,
+                    EndDate = utcDateTime.AddDays(durationInDays),
+                    IsCurrent = !await _userRepository.IsInOtherPlans(userId),
                     UserId = userId,
                     SubscriptionPlanId = planId
                 };

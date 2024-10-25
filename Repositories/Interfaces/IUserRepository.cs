@@ -15,6 +15,8 @@ namespace MealHunt_Repositories.Interfaces
 
         Task<User?> GetUserByEmail(string email);
 
-        Task DeleteUser(int id);    
+        Task DeleteUser(int id);
+
+        Task<bool> IsInOtherPlans(int userId);
     }
 }

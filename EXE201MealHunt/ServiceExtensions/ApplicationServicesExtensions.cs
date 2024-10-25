@@ -43,6 +43,7 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IIngredientShoppingListRepository, IngredientShoppingListRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IUserSubscriptionRepository, UserSubscriptionRepository>();
+            services.AddScoped<ISubscriptionPlanRepository, SubscriptionPlanRepository>();
 
             return services;
         }
