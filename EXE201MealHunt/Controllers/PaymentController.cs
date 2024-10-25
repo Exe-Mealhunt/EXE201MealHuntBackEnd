@@ -7,6 +7,9 @@ using Net.payOS.Types;
 using System;
 using MealHunt_Services.CustomModels.ResponseModels;
 using MealHunt_APIs.ViewModels.ResponseModel;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace MealHunt_APIs.Controllers
 {
@@ -24,10 +27,18 @@ namespace MealHunt_APIs.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Roles = "Guest,Member")]
         public async Task<IActionResult> CreatePaymentUrl(CreatePaymentLinkRequest request)
         {
             try
             {
+                var userIdClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {
+                    return Unauthorized();
+                }
+                var userId = Int32.Parse(userIdClaim.Value.Trim());
+                request.UserId = userId;
                 var response = await _paymentService.CreatePaymentUrl(request);
                 return Ok(response);
             }

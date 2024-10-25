@@ -129,6 +129,7 @@ namespace MealHunt_Services.Implements
 
             var securityToken = new JwtSecurityToken
             (
+                
                 claims: claims,
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: signingCred
