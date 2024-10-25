@@ -111,5 +111,25 @@ namespace MealHunt_Services.Implements
 				throw;
 			}
 		}
-    }
+
+		public async Task DeleteRecipe(int id)
+		{
+			try
+            {
+                var recipe = await _recipeRepository.GetRecipeById(id) ?? throw new Exception("Recipe does not exist");
+
+                List<RecipeIngredientModel> RecipeIngredients = await _recipeIngredientService.GetByRecipeId(id);
+                foreach (var item in RecipeIngredients)
+                {
+                    await _recipeIngredientService.DeleteAsync(item.Id);
+                }
+
+                await _recipeRepository.DeleteRecipe(recipe.Id);
+            }
+			catch
+            {
+                throw;
+            }
+		}
+	}
 }

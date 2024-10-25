@@ -46,19 +46,58 @@ namespace MealHunt_Repositories.Implements
 			}
 		}
 
-		public Task DeleteAsync(int id)
+		public async Task DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var recipeIngredient = await _context.RecipeIngredients.FindAsync(id) ?? throw new Exception("Recipe Ingredient does not exist");
+				_context.RecipeIngredients.Remove(recipeIngredient);
+				await _context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
 		}
 
-		public Task<RecipeIngredient> GetById(int id)
+		public async Task<RecipeIngredient> GetById(int id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return await _context.RecipeIngredients.FindAsync(id);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
 		}
 
-		public Task UpdateAsync(RecipeIngredient recipeIngredient)
+		public async Task<List<RecipeIngredient>> GetByRecipeId(int id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return await _context.RecipeIngredients.Where(ri => ri.RecipeId == id).ToListAsync();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
+		}
+
+		public async Task UpdateAsync(RecipeIngredient recipeIngredient)
+		{
+			try
+			{
+				if (await _context.RecipeIngredients.FindAsync(recipeIngredient.Id) == null)
+					throw new Exception("Recipe Ingredient does not exist");
+
+				_context.RecipeIngredients.Update(recipeIngredient);
+				await _context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
 		}
 	}
 }
