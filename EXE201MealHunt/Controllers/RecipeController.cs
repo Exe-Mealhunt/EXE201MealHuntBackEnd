@@ -98,5 +98,14 @@ namespace MealHunt_APIs.Controllers
 			await _recipeService.AddRecipe(recipeRequest);
 			return Ok(recipeRequest);
 		}
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRecipe(int id)
+        {
+            if (id <= 0) return BadRequest("Invalid id");
+
+            await _recipeService.DeleteRecipe(id);
+            return Ok();
+        }
     }
 }

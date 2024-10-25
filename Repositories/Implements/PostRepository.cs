@@ -77,6 +77,7 @@ namespace MealHunt_Repositories.Implements
 				var posts = _context.Posts
 							.Include(p => p.Comments)
 							.Include(p => p.User)
+							.OrderByDescending(p => p.CreatedAt)
 							.AsQueryable();
 
 				return await PagedList<Post>

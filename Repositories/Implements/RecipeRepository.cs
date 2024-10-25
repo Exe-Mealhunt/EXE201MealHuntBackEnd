@@ -41,6 +41,7 @@ namespace MealHunt_Repositories.Implements
                 var recipesQuery = _context.Recipes
                     .Include(r => r.RecipeIngredients).ThenInclude(ri => ri.Ingredient)
                     .Include(r => r.Occasion)
+                    .OrderByDescending(r => r.CreatedAt)
                     .AsQueryable();
 
                 if (recipesQuery.Any())
@@ -87,6 +88,7 @@ namespace MealHunt_Repositories.Implements
                 recipeIngredients = await _context.RecipeIngredients
                     .Include(ri => ri.Ingredient).ThenInclude(i => i.IngredientCategories).ThenInclude(ic => ic.Category)
                     .Where(ri => ri.RecipeId == id)
+                    .OrderByDescending(ri => ri.CreatedAt)
                     .ToListAsync();
             }
             catch (Exception ex)

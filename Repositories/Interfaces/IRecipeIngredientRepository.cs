@@ -9,6 +9,7 @@ namespace MealHunt_Repositories.Interfaces
 {
 	public interface IRecipeIngredientRepository
 	{
+		Task<List<RecipeIngredient>> GetByRecipeId(int id);
 		Task<RecipeIngredient> GetById(int id);
 		Task<RecipeIngredient> AddAsync(RecipeIngredient recipeIngredient);
 		Task UpdateAsync(RecipeIngredient recipeIngredient);

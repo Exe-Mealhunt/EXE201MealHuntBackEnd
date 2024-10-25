@@ -53,6 +53,7 @@ namespace MealHunt_Services.Implements
 					UserId = blogPostRequest.UserId,
 					Title = blogPostRequest.Title,
 					Content = blogPostRequest.Content,
+					ImgUrl = blogPostRequest.Thumbnail,
 					CreatedAt = DateTime.UtcNow,
 				};
 

@@ -20,5 +20,7 @@ namespace MealHunt_Services.Interfaces
         Task<List<Ingredient4RecipeDetails>> GetMissingIngredientsOfRecipe(int id, string[] ingredientNames);
 
         Task AddRecipe(RecipeRequest recipeModel);
+
+        Task DeleteRecipe(int id);
     }
 }

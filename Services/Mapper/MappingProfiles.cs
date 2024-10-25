@@ -54,6 +54,9 @@ namespace MealHunt_Services.Mapper
             CreateMap<Ingredient, IngredientModel>().ReverseMap();
             CreateMap<Ingredient, Ingredient4RecipeDetails>();
 
+            // RecipeIngredients
+            CreateMap<RecipeIngredient, RecipeIngredientModel>().ReverseMap();
+
             // Posts
             CreateMap<Post, PostModel>().ReverseMap();
 
