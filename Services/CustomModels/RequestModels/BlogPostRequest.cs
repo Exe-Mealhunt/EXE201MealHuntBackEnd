@@ -18,6 +18,6 @@ namespace MealHunt_Services.CustomModels.RequestModels
 		[Required]
 		public string Content { get; set; }
 
-		public string? Thumbnail { get; set; }
+		public string? ImgUrl { get; set; }
 	}
 }
