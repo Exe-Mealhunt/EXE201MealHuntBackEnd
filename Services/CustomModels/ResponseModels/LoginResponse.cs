@@ -15,6 +15,8 @@ namespace MealHunt_Services.CustomModels.ResponseModels
 
         public string? Role { get; set; }
 
+        public List<int?>? SubscriptionIds { get; set; }
+
         public string? AccessToken { get; set; }
     }
 }

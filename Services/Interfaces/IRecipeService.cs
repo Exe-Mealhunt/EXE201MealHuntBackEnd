@@ -17,7 +17,7 @@ namespace MealHunt_Services.Interfaces
 
         Task<PagedList<RecipeListResponse>> GetRecipes(RecipeParameters parameters);
 
-        Task<List<Ingredient4RecipeDetails>> GetMissingIngredientsOfRecipe(int id, string[] ingredientNames);
+        Task<List<Ingredient4RecipeDetails>> GetMissingIngredientsOfRecipe(int id, int userId, string[] ingredientNames);
 
         Task AddRecipe(RecipeRequest recipeModel);
 

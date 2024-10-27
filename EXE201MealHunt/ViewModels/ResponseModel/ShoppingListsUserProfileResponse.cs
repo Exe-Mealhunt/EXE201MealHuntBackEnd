@@ -3,6 +3,7 @@
     public class ShoppingListsUserProfileResponse
     {
         public string? Name { get; set; }
+        public string? ImgUrl { get; set; }
         public List<IngredientUnitQuantityShoppingListResponse> IngredientUnits { get; set; }
     }
 }

@@ -16,6 +16,8 @@ namespace MealHunt_Services.CustomModels.ResponseModels
 
         public double? Quantity { get; set; }
 
+        public bool? IsInShoppingList { get; set; }
+
         public List<string>? CategoryNames { get; set; }
     }
 }

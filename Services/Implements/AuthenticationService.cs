@@ -60,6 +60,7 @@ namespace MealHunt_Services.Implements
 
                 // Generate jwt access token
                 response.AccessToken = GenerateAccessTokenString(user);
+                response.SubscriptionIds = user?.UserSubscriptions?.Select(us => us.SubscriptionPlanId).ToList();
                 return response;   
             }
             catch

@@ -48,6 +48,7 @@ namespace MealHunt_APIs.Controllers
                 var response = shoppingLists.Select(sl => new ShoppingListsUserProfileResponse
                 {
                     Name = sl.Recipe.Name,
+                    ImgUrl = sl.Recipe.ImageUrl,
                     IngredientUnits = sl.IngredientShoppingLists.Select(isl => new IngredientUnitQuantityShoppingListResponse
                     {
                         IngredientName = isl.Ingredient?.IngredientName,

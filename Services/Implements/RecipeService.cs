@@ -19,15 +19,17 @@ namespace MealHunt_Services.Implements
     {
         private readonly IRecipeRepository _recipeRepository;
         private readonly IMapper _mapper;
-        private readonly IIngredientRepository _ingredientRepository;
         private readonly IRecipeIngredientService _recipeIngredientService;
+        private readonly IIngredientShoppingListRepository _ingredientShoppingListRepository;
+        private readonly IShoppingListRepository _shoppingListRepository;
 
-        public RecipeService(IRecipeRepository recipeRepository, IMapper mapper, IIngredientRepository ingredientRepository, IRecipeIngredientService recipeIngredientService)
+        public RecipeService(IRecipeRepository recipeRepository, IMapper mapper, IRecipeIngredientService recipeIngredientService, IIngredientShoppingListRepository ingredientShoppingListRepository, IShoppingListRepository shoppingListRepository)
         {
             _recipeRepository = recipeRepository;
             _mapper = mapper;
-            _ingredientRepository = ingredientRepository;
             _recipeIngredientService = recipeIngredientService;
+            _ingredientShoppingListRepository = ingredientShoppingListRepository;
+            _shoppingListRepository = shoppingListRepository;
         }
 
         public async Task<RecipeDetailsResponse> GetRecipeDetails(int id)
@@ -62,7 +64,7 @@ namespace MealHunt_Services.Implements
             }
         }
 
-        public async Task<List<Ingredient4RecipeDetails>> GetMissingIngredientsOfRecipe(int id, string[] ingredientNames)
+        public async Task<List<Ingredient4RecipeDetails>> GetMissingIngredientsOfRecipe(int id, int userId, string[] ingredientNames)
         {
             try
             {
@@ -77,7 +79,24 @@ namespace MealHunt_Services.Implements
                         .Where(i => !ingredientNames.Contains(i.IngredientName))
                         .ToList();
                 }
+
+                foreach(var ingredient in response)
+                {
+                    var shoppingList = await _shoppingListRepository.GetShoppingLists(userId);
+                    var existingShoppingList = shoppingList.FirstOrDefault(sl =>
+                    sl.RecipeId == id && sl.IngredientShoppingLists.Any(isl => isl.IngredientId == ingredient.Id));
+                    if (existingShoppingList == null)
+                    {
+                        ingredient.IsInShoppingList = false;
+                    }
+                    else
+                    {
+                        ingredient.IsInShoppingList = true;
+                    }
+                }
+
                 
+
                 return response;
             }
             catch

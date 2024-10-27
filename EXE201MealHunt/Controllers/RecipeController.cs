@@ -22,14 +22,14 @@ namespace MealHunt_APIs.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRecipeDetails(int id, [FromQuery] string[] ingredientNames = null)
+        public async Task<IActionResult> GetRecipeDetails(int id, int userId, [FromQuery] string[] ingredientNames = null)
         {
             if (id <= 0)
                 return BadRequest("Invalid Id!");
             try
             {
                 var recipeResponse = await _recipeService.GetRecipeDetails(id);
-                var missingIngredients = await _recipeService.GetMissingIngredientsOfRecipe(id, ingredientNames);
+                var missingIngredients = await _recipeService.GetMissingIngredientsOfRecipe(id, userId, ingredientNames);
                 var response = new RecipeDetailsPageResponse
                 {
                     Recipe = recipeResponse,
