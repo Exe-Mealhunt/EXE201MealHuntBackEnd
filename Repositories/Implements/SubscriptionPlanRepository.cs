@@ -18,4 +18,18 @@ public class SubscriptionPlanRepository : ISubscriptionPlanRepository
     {
         return await _context.SubscriptionPlans.FirstOrDefaultAsync(sp => sp.Id == id);
     }
+
+    public async Task<List<SubscriptionPlan>> GetSubscriptionPlansAsync()
+    {
+        var plans = new List<SubscriptionPlan>();
+        try
+        {
+            plans = await _context.SubscriptionPlans.ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        return plans;
+    }
 }

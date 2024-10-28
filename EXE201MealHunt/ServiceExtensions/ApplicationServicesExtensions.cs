@@ -66,6 +66,7 @@ namespace MealHunt_APIs.ServiceExtensions
             services.AddScoped<IIngredientShoppingListService, IngredientShoppingListService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ICloudinaryService, CloudinaryService>();
+            services.AddScoped<ISubscriptionPlanService, SubscriptionPlanService>();
 
             return services;
         }

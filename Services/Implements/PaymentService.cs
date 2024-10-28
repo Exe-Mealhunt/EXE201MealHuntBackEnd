@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace MealHunt_Services.Implements
 {
@@ -25,13 +26,20 @@ namespace MealHunt_Services.Implements
         private string subscriptionPrefix = "Plan";
         private readonly IUserSubscriptionRepository _userSubscriptionRepository;
         private readonly ISubscriptionPlanRepository _subscriptionPlanRepository;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
+        private string updateRole = "Member";
+        private string guestRole = "Guest";
+
 
         public PaymentService(
             PayOS payOS, 
             IPaymentRepository paymentRepository, 
             IUserRepository userRepository, 
             IUserSubscriptionRepository userSubscriptionRepository, 
-            ISubscriptionPlanRepository subscriptionPlanRepository
+            ISubscriptionPlanRepository subscriptionPlanRepository,
+            UserManager<User> userManager,
+            RoleManager<Role> roleManager
             )
         {
             _payOS = payOS;
@@ -39,6 +47,8 @@ namespace MealHunt_Services.Implements
             _userRepository = userRepository;
             _userSubscriptionRepository = userSubscriptionRepository;
             _subscriptionPlanRepository = subscriptionPlanRepository;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<string> CreatePaymentUrl(CreatePaymentLinkRequest request)
@@ -49,13 +59,21 @@ namespace MealHunt_Services.Implements
                 long ticks = DateTime.UtcNow.Ticks; // This gives you a unique value in ticks
                 int randomValue = new Random().Next(1000, 9999);
                 long orderCode = (long)(ticks % 1000000000 + randomValue);
-                ItemData item = new ItemData(request.ProductName, 1, request.Price);
+                
+                // Get subscription plan 
+                var plan = await _subscriptionPlanRepository.GetSubscriptionPlanByIdAsync((int)request.SubscriptionPlanId);
+                if (plan == null)
+                {
+                    throw new Exception($"Subscription plan with id {request.SubscriptionPlanId} not found!");
+                }
+                
+                ItemData item = new ItemData(plan.Name, 1, (int)plan.Price);
                 List<ItemData> items = new List<ItemData>();
                 items.Add(item);
 
                 var description = $"{prefix}{request.UserId} {subscriptionPrefix}{request.SubscriptionPlanId}";
                 PaymentData paymentData = 
-                    new PaymentData(orderCode, request.Price, description, items, request.CancelUrl, request.ReturnUrl, null, request.UserId.ToString());
+                    new PaymentData(orderCode, (int)plan.Price, description, items, request.CancelUrl, request.ReturnUrl);
 
                 CreatePaymentResult createPayment = await _payOS.createPaymentLink(paymentData);
 
@@ -152,6 +170,12 @@ namespace MealHunt_Services.Implements
                     {
                         Success = false
                     };
+                
+                // Update role of user from Guest to Member
+                if (user.Role.Equals(guestRole))
+                {
+                    await ChangeUserRole(user, updateRole);
+                }
 
                 return new PayOSWebhookResponse
                 {
@@ -162,6 +186,36 @@ namespace MealHunt_Services.Implements
             {
                 throw;
             }
+        }
+        
+        private async Task ChangeUserRole(User user, string newRole)
+        {
+            // Check if the new role exists
+            if (!await _roleManager.RoleExistsAsync(newRole))
+            {
+                throw new Exception("Invalid role");
+            }
+
+            // Get current roles of the user
+            var currentRoles = await _userManager.GetRolesAsync(user);
+
+            // Remove all current roles
+            var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            if (!removeResult.Succeeded)
+            {
+                throw new Exception("Failed to remove existing roles.");
+            }
+
+            // Add the new role
+            var addResult = await _userManager.AddToRoleAsync(user, newRole);
+            if (!addResult.Succeeded)
+            {
+                throw new Exception("Failed to add new role.");
+            }
+            
+            // Update role property (string) of user
+            user.Role = newRole;
+            await _userManager.UpdateAsync(user);
         }
     }
 }

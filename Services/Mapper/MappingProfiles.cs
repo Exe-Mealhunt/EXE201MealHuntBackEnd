@@ -91,6 +91,12 @@ namespace MealHunt_Services.Mapper
             CreateMap<IngredientCategory, IngredientCategoryModel>().ReverseMap();
 
 			CreateMap<Post, PostListResponse>();
+            
+            // Subscription plan
+            CreateMap<SubscriptionPlan, SubscriptionPlanModel>().ReverseMap();
+            
+            // User subscription
+            CreateMap<UserSubscription, UserSubscriptionModel>().ReverseMap();
 		}
 
         private List<string> IngredientCategoriesToIngredientNames(ICollection<IngredientCategory> ingredientCategories)
