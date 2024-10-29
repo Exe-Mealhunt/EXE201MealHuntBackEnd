@@ -64,7 +64,9 @@ public class UserRepository : IUserRepository
         }
         try
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users
+                .Include(u => u.UserSubscriptions)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
         catch (Exception ex)
         {

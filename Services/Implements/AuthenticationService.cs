@@ -60,7 +60,18 @@ namespace MealHunt_Services.Implements
 
                 // Generate jwt access token
                 response.AccessToken = GenerateAccessTokenString(user);
-                response.SubscriptionIds = user?.UserSubscriptions?.Select(us => us.SubscriptionPlanId).ToList();
+                var userSubscription = await _userRepository.FindUserById(user.Id);
+                response.Subscription = userSubscription.UserSubscriptions
+                    .Where(us => us.IsCurrent) // Filter for the current subscription, or use another criterion if preferred
+                    .OrderByDescending(us => us.EndDate) // Sort by EndDate if needed
+                    .Select(us => new UserSubscriptionResponse
+                    {
+                        EndDate = us.EndDate,
+                        IsCurrent = us.IsCurrent,
+                        SubscriptionPlanId = us.SubscriptionPlanId
+                    })
+                    .FirstOrDefault();
+                //response.SubscriptionIds = user?.UserSubscriptions?.Select(us => us.SubscriptionPlanId).ToList();
                 return response;   
             }
             catch
