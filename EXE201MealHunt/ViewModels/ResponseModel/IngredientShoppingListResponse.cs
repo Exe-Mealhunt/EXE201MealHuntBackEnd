@@ -2,7 +2,8 @@
 {
     public class IngredientShoppingListResponse
     {
-        
+        public int Id { get; set; }
+
         public int? IngredientId { get; set; }
 
         public int? ShoppingListsId { get; set; }

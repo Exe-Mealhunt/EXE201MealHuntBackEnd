@@ -28,7 +28,15 @@ namespace MealHunt_APIs.Controllers
             try
             {
 
-                var response = await _ingredientShoppingListService.AddIngredientShoppingList(ingredientId, recipeId, userId);
+                var ingredientShoppingList = await _ingredientShoppingListService.AddIngredientShoppingList(ingredientId, recipeId, userId);
+                var response = new IngredientShoppingListResponse
+                {
+                    Id = ingredientShoppingList.Id,
+                    IngredientId = ingredientShoppingList.IngredientId,
+                    CreatedAt = ingredientShoppingList.CreatedAt,
+                    ShoppingListsId = ingredientShoppingList.ShoppingListsId,
+                    Status = ingredientShoppingList.Status
+                };
                 return Ok(response);
 
             }
