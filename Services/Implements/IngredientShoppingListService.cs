@@ -28,7 +28,8 @@ namespace MealHunt_Services.Implements
         public async Task<IngredientShoppingListModel> AddIngredientShoppingList(int ingredientId, int recipeId, int userId)
         {
             var shoppingList = new List<ShoppingList>();
-            // Try to find an existing shopping list for the user, recipe, and ingredient
+
+            // Try to find an existing shopping list for the user and recipe
             try
             {
                 shoppingList = await _shoppingListRepository.GetShoppingLists(userId);
@@ -39,13 +40,23 @@ namespace MealHunt_Services.Implements
                 Console.WriteLine(ex.Message);
                 throw;
             }
-            var existingShoppingList = shoppingList.FirstOrDefault(sl =>
-                sl.RecipeId == recipeId);
+
+            var existingShoppingList = shoppingList.FirstOrDefault(sl => sl.RecipeId == recipeId);
 
             IngredientShoppingList ingredientShoppingList = null;
 
             if (existingShoppingList != null)
             {
+                // Check if the ingredient already exists in the shopping list
+                var existingIngredient = existingShoppingList.IngredientShoppingLists
+                    .FirstOrDefault(isl => isl.IngredientId == ingredientId);
+
+                if (existingIngredient != null)
+                {
+                    // If the ingredient already exists, return or throw an exception as per your requirements
+                    throw new InvalidOperationException("Ingredient already exists in the shopping list.");
+                }
+
                 // Add the ingredient to the existing shopping list
                 ingredientShoppingList = await _ingredientShoppingListRepository.AddIngredientShoppingList(new IngredientShoppingList
                 {
