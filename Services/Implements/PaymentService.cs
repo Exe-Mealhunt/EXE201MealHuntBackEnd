@@ -22,7 +22,7 @@ namespace MealHunt_Services.Implements
         private readonly PayOS _payOS;
         private readonly IPaymentRepository _paymentRepository;
         private readonly IUserRepository _userRepository;
-        private string prefix = "Meal Hunt - Payment of #";
+        private string prefix = "MealHunt PaymentOf ";
         private readonly IUserSubscriptionRepository _userSubscriptionRepository;
         private readonly ISubscriptionPlanRepository _subscriptionPlanRepository;
         private readonly UserManager<User> _userManager;
@@ -120,8 +120,8 @@ namespace MealHunt_Services.Implements
 
                 // Get user id from description
                 var description = data.description;
-                var descriptionParts = description.Split('#');
-                var orderInfoStrings = descriptionParts[1].Split('S');
+                var descriptionParts = description.Split(' ');
+                var orderInfoStrings = descriptionParts[2].Trim().Split('S');
                 var userId = int.Parse(orderInfoStrings[0]);
                 var planId = int.Parse(orderInfoStrings[1]);
                 
