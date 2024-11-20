@@ -70,7 +70,7 @@ namespace MealHunt_Services.Implements
                 List<ItemData> items = new List<ItemData>();
                 items.Add(item);
 
-                var description = $"{prefix}{request.UserId}_{plan.Id}";
+                var description = $"{prefix}{request.UserId}S{plan.Id}";
                 PaymentData paymentData = 
                     new PaymentData(orderCode, (int)plan.Price, description, items, request.CancelUrl, request.ReturnUrl);
 
@@ -121,7 +121,7 @@ namespace MealHunt_Services.Implements
                 // Get user id from description
                 var description = data.description;
                 var descriptionParts = description.Split('#');
-                var orderInfoStrings = descriptionParts[1].Split('_');
+                var orderInfoStrings = descriptionParts[1].Split('S');
                 var userId = int.Parse(orderInfoStrings[0]);
                 var planId = int.Parse(orderInfoStrings[1]);
                 
