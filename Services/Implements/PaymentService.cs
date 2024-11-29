@@ -22,8 +22,7 @@ namespace MealHunt_Services.Implements
         private readonly PayOS _payOS;
         private readonly IPaymentRepository _paymentRepository;
         private readonly IUserRepository _userRepository;
-        private string prefix = "User";
-        private string subscriptionPrefix = "Plan";
+        private string prefix = "MealHunt PaymentOf ";
         private readonly IUserSubscriptionRepository _userSubscriptionRepository;
         private readonly ISubscriptionPlanRepository _subscriptionPlanRepository;
         private readonly UserManager<User> _userManager;
@@ -71,7 +70,7 @@ namespace MealHunt_Services.Implements
                 List<ItemData> items = new List<ItemData>();
                 items.Add(item);
 
-                var description = $"{prefix}{request.UserId} {subscriptionPrefix}{request.SubscriptionPlanId}";
+                var description = $"{prefix}{request.UserId}S{plan.Id}";
                 PaymentData paymentData = 
                     new PaymentData(orderCode, (int)plan.Price, description, items, request.CancelUrl, request.ReturnUrl);
 
@@ -122,8 +121,9 @@ namespace MealHunt_Services.Implements
                 // Get user id from description
                 var description = data.description;
                 var descriptionParts = description.Split(' ');
-                var userId = int.Parse(descriptionParts[0].Substring(prefix.Length));
-                var planId = int.Parse(descriptionParts[1].Substring(subscriptionPrefix.Length));
+                var orderInfoStrings = descriptionParts[2].Trim().Split('S');
+                var userId = int.Parse(orderInfoStrings[0]);
+                var planId = int.Parse(orderInfoStrings[1]);
                 
                 // Get subscription plan by id
                 var plan = await _subscriptionPlanRepository.GetSubscriptionPlanByIdAsync(planId);
