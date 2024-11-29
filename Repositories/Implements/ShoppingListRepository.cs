@@ -53,5 +53,60 @@ namespace MealHunt_Repositories.Implements
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<bool> DeleteShoppingLists(int shoppingListId)
+        {
+            try
+            {
+                // Find the shopping list by ID
+                var shoppingList = await _context.ShoppingLists.FindAsync(shoppingListId);
+
+                if (shoppingList == null)
+                {
+                    // Return false if the shopping list doesn't exist
+                    return false;
+                }
+
+                // Remove the shopping list
+                _context.ShoppingLists.Remove(shoppingList);
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                return true; // Return true if deletion succeeded
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<ShoppingList> GetByIdAsync(int shoppingListId)
+        {
+            try
+            {
+                return await _context.ShoppingLists
+                    .Include(sl => sl.IngredientShoppingLists) // Include related ShoppingListIngredients
+                    .ThenInclude(sli => sli.Ingredient)        // Optionally include the Ingredient details
+                    .FirstOrDefaultAsync(sl => sl.Id == shoppingListId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving the shopping list: {ex.Message}");
+            }
+        }
+
+        public async Task RemoveShoppingListIngredients(int shoppingListId)
+        {
+            var ingredients = _context.IngredientShoppingLists
+                .Where(sli => sli.ShoppingListsId == shoppingListId);
+
+            if (ingredients.Any())
+            {
+                _context.IngredientShoppingLists.RemoveRange(ingredients);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

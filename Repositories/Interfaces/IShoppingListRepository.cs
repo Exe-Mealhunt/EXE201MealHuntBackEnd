@@ -11,6 +11,9 @@ namespace MealHunt_Repositories.Interfaces
     {
         Task<ShoppingList> AddShoppingList(ShoppingList shoppingList);
         Task<List<ShoppingList>> GetShoppingLists(int userId);
+        Task<ShoppingList> GetByIdAsync(int shoppingListId);
+        Task<bool> DeleteShoppingLists(int shoppingListId);
+        Task RemoveShoppingListIngredients(int shoppingListId);
 
     }
 }

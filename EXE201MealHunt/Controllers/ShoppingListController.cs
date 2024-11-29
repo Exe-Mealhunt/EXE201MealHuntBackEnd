@@ -47,6 +47,7 @@ namespace MealHunt_APIs.Controllers
                 var shoppingLists =  await _shoppingListService.GetShoppingLists(userId);
                 var response = shoppingLists.Select(sl => new ShoppingListsUserProfileResponse
                 {
+                    Id = sl.Id,
                     Name = sl.Recipe.Name,
                     ImgUrl = sl.Recipe.ImageUrl,
                     IngredientUnits = sl.IngredientShoppingLists.Select(isl => new IngredientUnitQuantityShoppingListResponse
@@ -62,6 +63,32 @@ namespace MealHunt_APIs.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("delete-shopping-list")]
+        public async Task<IActionResult> DeleteShoppingList(int id)
+        {
+            try
+            {
+                // Call the service layer to delete the shopping list
+                var result = await _shoppingListService.DeleteShoppingList(id);
+
+                if (result)
+                {
+                    return Ok(new { Message = $"Shopping list with ID {id} was successfully deleted." });
+                }
+                else
+                {
+                    // Return NotFound if the shopping list was not found
+                    return NotFound(new { Message = $"Shopping list with ID {id} not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Return InternalServerError for any other exceptions
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Message = $"An error occurred while deleting the shopping list: {ex.Message}" });
             }
         }
     }

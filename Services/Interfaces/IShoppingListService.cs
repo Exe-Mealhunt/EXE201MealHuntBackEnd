@@ -12,5 +12,6 @@ namespace MealHunt_Services.Interfaces
     {
         Task<ShoppingListModel> AddShoppingList(ShoppingListModel shoppingListModel);
         Task<List<ShoppingListModel>> GetShoppingLists(int userId);
+        Task<bool> DeleteShoppingList(int shoppingListId);
     }
 }

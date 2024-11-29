@@ -51,5 +51,33 @@ namespace MealHunt_Services.Implements
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<bool> DeleteShoppingList(int shoppingListId)
+        {
+            try
+            {
+                // Check if the shopping list exists
+                var shoppingList = await _shoppingListRepository.GetByIdAsync(shoppingListId);
+                if (shoppingList == null)
+                {
+                    throw new KeyNotFoundException($"Shopping list with ID {shoppingListId} not found.");
+                }
+
+                // Remove related ShoppingListIngredients
+                if (shoppingList.IngredientShoppingLists != null && shoppingList.IngredientShoppingLists.Any())
+                {
+                    await _shoppingListRepository.RemoveShoppingListIngredients(shoppingListId);
+                }
+
+                // Delete the shopping list itself
+                var result = await _shoppingListRepository.DeleteShoppingLists(shoppingListId);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while deleting the shopping list: {ex.Message}");
+            }
+        }
     }
 }
